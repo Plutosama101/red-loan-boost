@@ -17,33 +17,9 @@ const Header = () => {
             <span className="text-xl font-bold text-foreground">LGCRED</span>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#loans" className="text-foreground hover:text-primary transition-colors">
-              Loans
-            </a>
-            <a href="#calculator" className="text-foreground hover:text-primary transition-colors">
-              Calculator
-            </a>
-            <a href="#about" className="text-foreground hover:text-primary transition-colors">
-              About Us
-            </a>
-            <a href="#contact" className="text-foreground hover:text-primary transition-colors">
-              Contact
-            </a>
-          </nav>
-
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline">Login</Button>
-            <Button className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan">
-              Apply Now
-            </Button>
-          </div>
-
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -52,23 +28,23 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden border-t bg-background">
+          <div className="border-t bg-background">
             <nav className="flex flex-col space-y-4 p-4">
-              <a href="#loans" className="text-foreground hover:text-primary transition-colors">
+              <a href="#loans" className="text-foreground hover:text-primary transition-colors py-2">
                 Loans
               </a>
-              <a href="#calculator" className="text-foreground hover:text-primary transition-colors">
+              <a href="#calculator" className="text-foreground hover:text-primary transition-colors py-2">
                 Calculator
               </a>
-              <a href="#about" className="text-foreground hover:text-primary transition-colors">
+              <a href="#about" className="text-foreground hover:text-primary transition-colors py-2">
                 About Us
               </a>
-              <a href="#contact" className="text-foreground hover:text-primary transition-colors">
+              <a href="#contact" className="text-foreground hover:text-primary transition-colors py-2">
                 Contact
               </a>
-              <div className="flex flex-col space-y-2 pt-4 border-t">
-                <Button variant="outline">Login</Button>
-                <Button className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan">
+              <div className="flex flex-col space-y-3 pt-4 border-t">
+                <Button variant="outline" size="lg">Login</Button>
+                <Button size="lg" className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan">
                   Apply Now
                 </Button>
               </div>

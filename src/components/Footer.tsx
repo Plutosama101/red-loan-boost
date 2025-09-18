@@ -5,11 +5,11 @@ import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "luc
 const Footer = () => {
   return (
     <footer className="bg-loan-secondary text-white">
-      <div className="container mx-auto px-4 lg:px-8 py-16">
-        <div className="grid lg:grid-cols-4 gap-8">
+      <div className="max-w-md mx-auto px-4 py-12">
+        <div className="space-y-8">
           {/* Company Info */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
+          <div className="text-center space-y-4">
+            <div className="flex items-center justify-center space-x-2">
               <div className="w-8 h-8 bg-gradient-primary rounded-md flex items-center justify-center">
                 <span className="text-white font-bold text-lg">LG</span>
               </div>
@@ -19,7 +19,7 @@ const Footer = () => {
               Empowering financial freedom through fast, secure, and accessible lending solutions. 
               Your trusted partner for all loan needs.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex justify-center space-x-4">
               <Button size="sm" variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">
                 <Facebook className="h-4 w-4" />
               </Button>
@@ -37,46 +37,33 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="font-bold text-lg">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="#loans" className="text-gray-300 hover:text-white transition-colors text-sm">Personal Loans</a></li>
-              <li><a href="#business" className="text-gray-300 hover:text-white transition-colors text-sm">Business Loans</a></li>
-              <li><a href="#calculator" className="text-gray-300 hover:text-white transition-colors text-sm">Loan Calculator</a></li>
-              <li><a href="#rates" className="text-gray-300 hover:text-white transition-colors text-sm">Interest Rates</a></li>
-              <li><a href="#faq" className="text-gray-300 hover:text-white transition-colors text-sm">FAQ</a></li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div className="space-y-4">
-            <h3 className="font-bold text-lg">Legal</h3>
-            <ul className="space-y-2">
-              <li><a href="#privacy" className="text-gray-300 hover:text-white transition-colors text-sm">Privacy Policy</a></li>
-              <li><a href="#terms" className="text-gray-300 hover:text-white transition-colors text-sm">Terms of Service</a></li>
-              <li><a href="#security" className="text-gray-300 hover:text-white transition-colors text-sm">Security</a></li>
-              <li><a href="#compliance" className="text-gray-300 hover:text-white transition-colors text-sm">Compliance</a></li>
-              <li><a href="#disclosure" className="text-gray-300 hover:text-white transition-colors text-sm">Loan Disclosure</a></li>
-            </ul>
+            <h3 className="font-bold text-center">Quick Links</h3>
+            <div className="grid grid-cols-2 gap-3 text-center">
+              <a href="#loans" className="text-gray-300 hover:text-white transition-colors text-sm py-2">Personal Loans</a>
+              <a href="#business" className="text-gray-300 hover:text-white transition-colors text-sm py-2">Business Loans</a>
+              <a href="#calculator" className="text-gray-300 hover:text-white transition-colors text-sm py-2">Loan Calculator</a>
+              <a href="#rates" className="text-gray-300 hover:text-white transition-colors text-sm py-2">Interest Rates</a>
+            </div>
           </div>
 
           {/* Contact */}
           <div className="space-y-4">
-            <h3 className="font-bold text-lg">Contact Us</h3>
+            <h3 className="font-bold text-center">Contact Us</h3>
             <div className="space-y-3">
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center justify-center space-x-3">
                 <Phone className="h-4 w-4 text-primary" />
                 <span className="text-sm text-gray-300">0800-LGCRED-1</span>
               </div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center justify-center space-x-3">
                 <Mail className="h-4 w-4 text-primary" />
                 <span className="text-sm text-gray-300">support@lgcred.ng</span>
               </div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center justify-center space-x-3">
                 <MapPin className="h-4 w-4 text-primary" />
-                <span className="text-sm text-gray-300">Victoria Island, Lagos, Nigeria</span>
+                <span className="text-sm text-gray-300">Lagos, Nigeria</span>
               </div>
             </div>
-            <div className="pt-4">
+            <div className="text-center">
               <Button className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan">
                 Get Support
               </Button>
@@ -86,14 +73,16 @@ const Footer = () => {
 
         <Separator className="my-8 bg-gray-700" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-sm text-gray-300">
-            © 2024 LGCRED. All rights reserved. Licensed by CBN RC #123456
+        <div className="text-center space-y-3">
+          <p className="text-xs text-gray-300">
+            © 2024 LGCRED. All rights reserved.
           </p>
-          <div className="flex items-center space-x-6 text-xs text-gray-400">
-            <span>Equal Housing Lender</span>
-            <span>FDIC Insured</span>
+          <p className="text-xs text-gray-300">
+            Licensed by CBN RC #123456
+          </p>
+          <div className="flex justify-center space-x-4 text-xs text-gray-400">
             <span>SSL Secured</span>
+            <span>FDIC Insured</span>
           </div>
         </div>
       </div>

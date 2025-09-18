@@ -15,18 +15,18 @@ const LoanCalculator = () => {
   const totalInterest = totalAmount - amount[0];
 
   return (
-    <section id="calculator" className="py-16 lg:py-24 bg-loan-gray">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center space-y-4 mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+    <section id="calculator" className="py-12 bg-loan-gray">
+      <div className="max-w-md mx-auto px-4">
+        <div className="text-center space-y-3 mb-8">
+          <h2 className="text-2xl font-bold text-foreground">
             Loan Calculator
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm text-muted-foreground">
             Calculate your monthly payments and see how much you can borrow
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="space-y-6">
           {/* Calculator Inputs */}
           <Card className="shadow-loan-card">
             <CardHeader>
@@ -96,64 +96,54 @@ const LoanCalculator = () => {
                 </p>
               </div>
 
-              <Button className="w-full bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan">
+              <Button className="w-full bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan py-3">
                 Apply for This Loan
               </Button>
             </CardContent>
           </Card>
 
           {/* Results */}
-          <div className="space-y-6">
-            <Card className="shadow-loan-card">
-              <CardContent className="pt-6">
-                <div className="text-center space-y-2">
-                  <p className="text-sm text-muted-foreground">Monthly Payment</p>
-                  <p className="text-4xl font-bold text-primary">
-                    ₦{monthlyPayment.toFixed(0)}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="grid grid-cols-2 gap-4">
-              <Card>
-                <CardContent className="pt-6 text-center">
-                  <p className="text-sm text-muted-foreground mb-2">Total Amount</p>
-                  <p className="text-xl font-bold text-foreground">
+          <Card className="shadow-loan-card">
+            <CardContent className="pt-6">
+              <div className="text-center space-y-2 mb-6">
+                <p className="text-sm text-muted-foreground">Monthly Payment</p>
+                <p className="text-3xl font-bold text-primary">
+                  ₦{monthlyPayment.toFixed(0)}
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                <div className="text-center p-3 bg-loan-gray rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">Total Amount</p>
+                  <p className="text-sm font-bold text-foreground">
                     ₦{totalAmount.toFixed(0)}
                   </p>
-                </CardContent>
-              </Card>
+                </div>
 
-              <Card>
-                <CardContent className="pt-6 text-center">
-                  <p className="text-sm text-muted-foreground mb-2">Total Interest</p>
-                  <p className="text-xl font-bold text-foreground">
+                <div className="text-center p-3 bg-loan-gray rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-1">Total Interest</p>
+                  <p className="text-sm font-bold text-foreground">
                     ₦{totalInterest.toFixed(0)}
                   </p>
-                </CardContent>
-              </Card>
-            </div>
-
-            <Card className="bg-gradient-primary text-white">
-              <CardContent className="pt-6">
-                <div className="space-y-4">
-                  <h3 className="font-bold text-lg">Ready to Apply?</h3>
-                  <p className="text-sm opacity-90">
-                    Get instant approval and funds in your account within 24 hours
-                  </p>
-                  <ul className="space-y-2 text-sm">
-                    <li>• No hidden fees</li>
-                    <li>• Fast approval process</li>
-                    <li>• Flexible repayment terms</li>
-                  </ul>
-                  <Button variant="secondary" className="w-full">
-                    Start Application
-                  </Button>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+              
+              <div className="bg-gradient-primary text-white rounded-lg p-4 space-y-3">
+                <h3 className="font-bold">Ready to Apply?</h3>
+                <p className="text-sm opacity-90">
+                  Get instant approval and funds in your account within 24 hours
+                </p>
+                <ul className="space-y-1 text-sm">
+                  <li>• No hidden fees</li>
+                  <li>• Fast approval process</li>
+                  <li>• Flexible repayment terms</li>
+                </ul>
+                <Button variant="secondary" className="w-full">
+                  Start Application
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

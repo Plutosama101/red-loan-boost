@@ -60,7 +60,7 @@ const Hero = () => {
                 <div className="text-sm text-muted-foreground">Happy Customers</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">$50M+</div>
+                <div className="text-2xl font-bold text-primary">₦2B+</div>
                 <div className="text-sm text-muted-foreground">Loans Disbursed</div>
               </div>
               <div className="text-center">
@@ -86,9 +86,9 @@ const Hero = () => {
                   <div className="p-6 space-y-6">
                     <div className="text-center space-y-2">
                       <div className="w-12 h-12 bg-gradient-primary rounded-xl mx-auto flex items-center justify-center">
-                        <span className="text-white font-bold text-lg">L</span>
+                        <span className="text-white font-bold text-sm">LG</span>
                       </div>
-                      <h3 className="font-bold text-foreground">LoanFlow</h3>
+                      <h3 className="font-bold text-foreground">LGCRED</h3>
                     </div>
 
                     <Card className="p-4 space-y-3">
@@ -96,7 +96,7 @@ const Hero = () => {
                         <span className="text-sm text-muted-foreground">Available Credit</span>
                         <Smartphone className="h-4 w-4 text-primary" />
                       </div>
-                      <div className="text-2xl font-bold text-primary">$5,000</div>
+                      <div className="text-2xl font-bold text-primary">₦500,000</div>
                       <Button className="w-full bg-gradient-primary text-white">
                         Get Loan
                       </Button>

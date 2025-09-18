@@ -11,9 +11,9 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-primary rounded-md flex items-center justify-center">
-                <span className="text-white font-bold text-lg">L</span>
+                <span className="text-white font-bold text-lg">LG</span>
               </div>
-              <span className="text-xl font-bold">LoanFlow</span>
+              <span className="text-xl font-bold">LGCRED</span>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Empowering financial freedom through fast, secure, and accessible lending solutions. 
@@ -65,15 +65,15 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone className="h-4 w-4 text-primary" />
-                <span className="text-sm text-gray-300">1-800-LOANFLOW</span>
+                <span className="text-sm text-gray-300">0800-LGCRED-1</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-primary" />
-                <span className="text-sm text-gray-300">support@loanflow.com</span>
+                <span className="text-sm text-gray-300">support@lgcred.ng</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="h-4 w-4 text-primary" />
-                <span className="text-sm text-gray-300">123 Financial St, NYC 10001</span>
+                <span className="text-sm text-gray-300">Victoria Island, Lagos, Nigeria</span>
               </div>
             </div>
             <div className="pt-4">
@@ -88,7 +88,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-sm text-gray-300">
-            © 2024 LoanFlow. All rights reserved. Licensed Lender NMLS #123456
+            © 2024 LGCRED. All rights reserved. Licensed by CBN RC #123456
           </p>
           <div className="flex items-center space-x-6 text-xs text-gray-400">
             <span>Equal Housing Lender</span>

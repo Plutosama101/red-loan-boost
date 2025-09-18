@@ -6,9 +6,9 @@ import { Slider } from "@/components/ui/slider";
 import { Calculator, DollarSign, Calendar, Percent } from "lucide-react";
 
 const LoanCalculator = () => {
-  const [amount, setAmount] = useState([5000]);
+  const [amount, setAmount] = useState([500000]);
   const [term, setTerm] = useState([12]);
-  const [rate] = useState(12); // Fixed rate for demo
+  const [rate] = useState(15); // Fixed rate for demo - Nigeria typical rate
 
   const monthlyPayment = (amount[0] * (rate / 100 / 12)) / (1 - Math.pow(1 + (rate / 100 / 12), -term[0]));
   const totalAmount = monthlyPayment * term[0];
@@ -41,21 +41,21 @@ const LoanCalculator = () => {
                 <div className="flex items-center justify-between">
                   <Label className="text-base font-medium">Loan Amount</Label>
                   <div className="flex items-center space-x-1 text-primary font-bold">
-                    <DollarSign className="h-4 w-4" />
+                    <span className="text-primary">₦</span>
                     <span>{amount[0].toLocaleString()}</span>
                   </div>
                 </div>
                 <Slider
                   value={amount}
                   onValueChange={setAmount}
-                  max={50000}
-                  min={1000}
-                  step={500}
+                  max={5000000}
+                  min={100000}
+                  step={50000}
                   className="w-full"
                 />
                 <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>$1,000</span>
-                  <span>$50,000</span>
+                  <span>₦100,000</span>
+                  <span>₦5,000,000</span>
                 </div>
               </div>
 
@@ -109,7 +109,7 @@ const LoanCalculator = () => {
                 <div className="text-center space-y-2">
                   <p className="text-sm text-muted-foreground">Monthly Payment</p>
                   <p className="text-4xl font-bold text-primary">
-                    ${monthlyPayment.toFixed(2)}
+                    ₦{monthlyPayment.toFixed(0)}
                   </p>
                 </div>
               </CardContent>
@@ -120,7 +120,7 @@ const LoanCalculator = () => {
                 <CardContent className="pt-6 text-center">
                   <p className="text-sm text-muted-foreground mb-2">Total Amount</p>
                   <p className="text-xl font-bold text-foreground">
-                    ${totalAmount.toFixed(2)}
+                    ₦{totalAmount.toFixed(0)}
                   </p>
                 </CardContent>
               </Card>
@@ -129,7 +129,7 @@ const LoanCalculator = () => {
                 <CardContent className="pt-6 text-center">
                   <p className="text-sm text-muted-foreground mb-2">Total Interest</p>
                   <p className="text-xl font-bold text-foreground">
-                    ${totalInterest.toFixed(2)}
+                    ₦{totalInterest.toFixed(0)}
                   </p>
                 </CardContent>
               </Card>

@@ -11,9 +11,12 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-primary rounded-md flex items-center justify-center">
-              <span className="text-white font-bold text-lg">LG</span>
-            </div>
+          <div className="w-8 h-8 bg-background border-2 border-border rounded-md flex items-center justify-center">
+            <span className="font-bold text-lg">
+              <span className="text-foreground">L</span>
+              <span className="text-destructive">G</span>
+            </span>
+          </div>
             <span className="text-xl font-bold text-foreground">LGCRED</span>
           </div>
 

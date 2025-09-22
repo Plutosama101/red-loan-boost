@@ -33,21 +33,43 @@ const Header = () => {
         {isMenuOpen && (
           <div className="border-t bg-background">
             <nav className="flex flex-col space-y-4 p-4">
-              <a href="#loans" className="text-foreground hover:text-primary transition-colors py-2">
+              <button 
+                onClick={() => {document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'}); setIsMenuOpen(false);}}
+                className="text-foreground hover:text-primary transition-colors py-2 text-left"
+              >
                 Loans
-              </a>
-              <a href="#calculator" className="text-foreground hover:text-primary transition-colors py-2">
+              </button>
+              <button 
+                onClick={() => {document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'}); setIsMenuOpen(false);}}
+                className="text-foreground hover:text-primary transition-colors py-2 text-left"
+              >
                 Calculator
-              </a>
-              <a href="#about" className="text-foreground hover:text-primary transition-colors py-2">
+              </button>
+              <button 
+                onClick={() => {document.querySelector('footer')?.scrollIntoView({behavior: 'smooth'}); setIsMenuOpen(false);}}
+                className="text-foreground hover:text-primary transition-colors py-2 text-left"
+              >
                 About Us
-              </a>
-              <a href="#contact" className="text-foreground hover:text-primary transition-colors py-2">
+              </button>
+              <button 
+                onClick={() => {document.querySelector('footer')?.scrollIntoView({behavior: 'smooth'}); setIsMenuOpen(false);}}
+                className="text-foreground hover:text-primary transition-colors py-2 text-left"
+              >
                 Contact
-              </a>
+              </button>
               <div className="flex flex-col space-y-3 pt-4 border-t">
-                <Button variant="outline" size="lg">Login</Button>
-                <Button size="lg" className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  onClick={() => alert('Login feature coming soon! Please connect Supabase for user accounts.')}
+                >
+                  Login
+                </Button>
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan"
+                  onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})}
+                >
                   Apply Now
                 </Button>
               </div>

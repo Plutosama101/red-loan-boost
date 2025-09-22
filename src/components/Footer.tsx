@@ -20,16 +20,36 @@ const Footer = () => {
               Your trusted partner for all loan needs.
             </p>
             <div className="flex justify-center space-x-4">
-              <Button size="sm" variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                className="text-gray-300 hover:text-white hover:bg-white/10"
+                onClick={() => window.open('https://facebook.com/lgcred', '_blank')}
+              >
                 <Facebook className="h-4 w-4" />
               </Button>
-              <Button size="sm" variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                className="text-gray-300 hover:text-white hover:bg-white/10"
+                onClick={() => window.open('https://twitter.com/lgcred', '_blank')}
+              >
                 <Twitter className="h-4 w-4" />
               </Button>
-              <Button size="sm" variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                className="text-gray-300 hover:text-white hover:bg-white/10"
+                onClick={() => window.open('https://linkedin.com/company/lgcred', '_blank')}
+              >
                 <Linkedin className="h-4 w-4" />
               </Button>
-              <Button size="sm" variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                className="text-gray-300 hover:text-white hover:bg-white/10"
+                onClick={() => window.open('https://instagram.com/lgcred', '_blank')}
+              >
                 <Instagram className="h-4 w-4" />
               </Button>
             </div>
@@ -39,10 +59,30 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-bold text-center">Quick Links</h3>
             <div className="grid grid-cols-2 gap-3 text-center">
-              <a href="#loans" className="text-gray-300 hover:text-white transition-colors text-sm py-2">Personal Loans</a>
-              <a href="#business" className="text-gray-300 hover:text-white transition-colors text-sm py-2">Business Loans</a>
-              <a href="#calculator" className="text-gray-300 hover:text-white transition-colors text-sm py-2">Loan Calculator</a>
-              <a href="#rates" className="text-gray-300 hover:text-white transition-colors text-sm py-2">Interest Rates</a>
+              <button 
+                onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})} 
+                className="text-gray-300 hover:text-white transition-colors text-sm py-2"
+              >
+                Personal Loans
+              </button>
+              <button 
+                onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})} 
+                className="text-gray-300 hover:text-white transition-colors text-sm py-2"
+              >
+                Business Loans
+              </button>
+              <button 
+                onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})} 
+                className="text-gray-300 hover:text-white transition-colors text-sm py-2"
+              >
+                Loan Calculator
+              </button>
+              <button 
+                onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})} 
+                className="text-gray-300 hover:text-white transition-colors text-sm py-2"
+              >
+                Interest Rates
+              </button>
             </div>
           </div>
 
@@ -64,7 +104,10 @@ const Footer = () => {
               </div>
             </div>
             <div className="text-center">
-              <Button className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan">
+              <Button 
+                className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan"
+                onClick={() => alert('Customer Support: Call 0800-LGCRED-1 or email support@lgcred.ng. Live chat coming soon after Supabase integration!')}
+              >
                 Get Support
               </Button>
             </div>

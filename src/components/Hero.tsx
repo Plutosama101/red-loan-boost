@@ -40,6 +40,7 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="w-full bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan text-lg py-4"
+              onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})}
             >
               Get Loan Now
             </Button>
@@ -47,6 +48,7 @@ const Hero = () => {
               variant="outline" 
               size="lg"
               className="w-full text-lg py-4"
+              onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})}
             >
               Calculate Loan
             </Button>
@@ -96,7 +98,10 @@ const Hero = () => {
                       <Smartphone className="h-3 w-3 text-primary" />
                     </div>
                     <div className="text-lg font-bold text-primary">₦500,000</div>
-                    <Button className="w-full bg-gradient-primary text-white text-xs py-2">
+                    <Button 
+                      className="w-full bg-gradient-primary text-white text-xs py-2"
+                      onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})}
+                    >
                       Get Loan
                     </Button>
                   </Card>

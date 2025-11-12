@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -24,6 +24,14 @@ const Footer = () => {
                 size="sm" 
                 variant="ghost" 
                 className="text-gray-300 hover:text-white hover:bg-white/10"
+                onClick={() => window.open('https://instagram.com/lgcred', '_blank')}
+              >
+                <Instagram className="h-4 w-4" />
+              </Button>
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                className="text-gray-300 hover:text-white hover:bg-white/10"
                 onClick={() => window.open('https://facebook.com/lgcred', '_blank')}
               >
                 <Facebook className="h-4 w-4" />
@@ -32,25 +40,9 @@ const Footer = () => {
                 size="sm" 
                 variant="ghost" 
                 className="text-gray-300 hover:text-white hover:bg-white/10"
-                onClick={() => window.open('https://twitter.com/lgcred', '_blank')}
+                onClick={() => window.open('https://wa.me/2348130222496', '_blank')}
               >
-                <Twitter className="h-4 w-4" />
-              </Button>
-              <Button 
-                size="sm" 
-                variant="ghost" 
-                className="text-gray-300 hover:text-white hover:bg-white/10"
-                onClick={() => window.open('https://linkedin.com/company/lgcred', '_blank')}
-              >
-                <Linkedin className="h-4 w-4" />
-              </Button>
-              <Button 
-                size="sm" 
-                variant="ghost" 
-                className="text-gray-300 hover:text-white hover:bg-white/10"
-                onClick={() => window.open('https://instagram.com/lgcred', '_blank')}
-              >
-                <Instagram className="h-4 w-4" />
+                <MessageCircle className="h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -63,13 +55,13 @@ const Footer = () => {
                 onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})} 
                 className="text-gray-300 hover:text-white transition-colors text-sm py-2"
               >
-                Personal Loans
+                SME Loans
               </button>
               <button 
                 onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})} 
                 className="text-gray-300 hover:text-white transition-colors text-sm py-2"
               >
-                Business Loans
+                PTA Loans
               </button>
               <button 
                 onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})} 
@@ -92,11 +84,11 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center justify-center space-x-3">
                 <Phone className="h-4 w-4 text-primary" />
-                <span className="text-sm text-gray-300">0800-LGCRED-1</span>
+                <span className="text-sm text-gray-300">08130222496</span>
               </div>
               <div className="flex items-center justify-center space-x-3">
                 <Mail className="h-4 w-4 text-primary" />
-                <span className="text-sm text-gray-300">support@lgcred.ng</span>
+                <span className="text-sm text-gray-300">support@lgcrednigltd.com</span>
               </div>
               <div className="flex items-center justify-center space-x-3">
                 <MapPin className="h-4 w-4 text-primary" />
@@ -106,7 +98,7 @@ const Footer = () => {
             <div className="text-center">
               <Button 
                 className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan"
-                onClick={() => alert('Customer Support: Call 0800-LGCRED-1 or email support@lgcred.ng. Live chat coming soon after Supabase integration!')}
+                onClick={() => alert('Customer Support: Call 08130222496 or email support@lgcrednigltd.com. Live chat coming soon!')}
               >
                 Get Support
               </Button>

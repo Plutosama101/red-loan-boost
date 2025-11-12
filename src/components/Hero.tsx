@@ -108,11 +108,11 @@ const Hero = () => {
 
                   <div className="space-y-2">
                     <div className="flex items-center justify-between p-2 bg-loan-gray rounded-lg">
-                      <span className="text-xs">Quick Loan</span>
+                      <span className="text-xs">SME Loan</span>
                       <span className="text-xs text-primary">Available</span>
                     </div>
                     <div className="flex items-center justify-between p-2 bg-loan-gray rounded-lg">
-                      <span className="text-xs">Business Loan</span>
+                      <span className="text-xs">PTA Loan</span>
                       <span className="text-xs text-primary">Available</span>
                     </div>
                   </div>

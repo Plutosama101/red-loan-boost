@@ -71,14 +71,14 @@ const LoanCalculator = () => {
                 <Slider
                   value={term}
                   onValueChange={setTerm}
-                  max={60}
+                  max={12}
                   min={3}
                   step={1}
                   className="w-full"
                 />
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>3 months</span>
-                  <span>60 months</span>
+                  <span>12 months</span>
                 </div>
               </div>
 

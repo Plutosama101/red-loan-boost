@@ -15,18 +15,18 @@ const LoanCalculator = () => {
   const totalInterest = totalAmount - amount[0];
 
   return (
-    <section id="calculator" className="py-12 bg-loan-gray">
-      <div className="max-w-md mx-auto px-4">
-        <div className="text-center space-y-3 mb-8">
-          <h2 className="text-2xl font-bold text-foreground">
+    <section id="calculator" className="py-12 md:py-16 bg-loan-gray">
+      <div className="container mx-auto px-4 max-w-5xl">
+        <div className="text-center space-y-3 mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-4xl font-bold text-foreground">
             Loan Calculator
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
             Calculate your monthly payments and see how much you can borrow
           </p>
         </div>
 
-        <div className="space-y-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {/* Calculator Inputs */}
           <Card className="shadow-loan-card">
             <CardHeader>

@@ -5,19 +5,18 @@ import logo from "@/assets/lgcred-logo.jpg";
 
 const Footer = () => {
   return (
-    <footer className="bg-loan-secondary text-white">
-      <div className="max-w-md mx-auto px-4 py-12">
-        <div className="space-y-8">
+    <footer id="footer" className="bg-loan-secondary text-white">
+      <div className="container mx-auto px-4 py-12 md:py-16 max-w-6xl">
+        <div className="grid md:grid-cols-3 gap-8 md:gap-12">
           {/* Company Info */}
-          <div className="text-center space-y-4">
-            <div className="flex items-center justify-center">
+          <div className="text-center md:text-left space-y-4">
+            <div className="flex items-center justify-center md:justify-start">
               <img src={logo} alt="LGCRED Nigeria Limited" className="h-12 brightness-0 invert" />
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
-              Empowering financial freedom through fast, secure, and accessible lending solutions. 
-              Your trusted partner for all loan needs.
+              Empowering financial freedom through fast, secure, and accessible lending solutions.
             </p>
-            <div className="flex justify-center space-x-4">
+            <div className="flex justify-center md:justify-start space-x-4">
               <Button 
                 size="sm" 
                 variant="ghost" 
@@ -47,8 +46,8 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="font-bold text-center">Quick Links</h3>
-            <div className="grid grid-cols-2 gap-3 text-center">
+            <h3 className="font-bold text-center md:text-left">Quick Links</h3>
+            <div className="grid grid-cols-2 gap-3 text-center md:text-left">
               <button 
                 onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})} 
                 className="text-gray-300 hover:text-white transition-colors text-sm py-2"
@@ -78,24 +77,24 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="space-y-4">
-            <h3 className="font-bold text-center">Contact Us</h3>
+            <h3 className="font-bold text-center md:text-left">Contact Us</h3>
             <div className="space-y-3">
-              <div className="flex items-center justify-center space-x-3">
+              <div className="flex items-center justify-center md:justify-start space-x-3">
                 <Phone className="h-4 w-4 text-primary" />
                 <span className="text-sm text-gray-300">08130222496</span>
               </div>
-              <div className="flex items-center justify-center space-x-3">
+              <div className="flex items-center justify-center md:justify-start space-x-3">
                 <Mail className="h-4 w-4 text-primary" />
                 <span className="text-sm text-gray-300">support@lgcrednigltd.com</span>
               </div>
-              <div className="flex items-center justify-center space-x-3">
+              <div className="flex items-center justify-center md:justify-start space-x-3">
                 <MapPin className="h-4 w-4 text-primary" />
                 <span className="text-sm text-gray-300">Lagos, Nigeria</span>
               </div>
             </div>
-            <div className="text-center">
+            <div className="text-center md:text-left">
               <Button 
-                className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan"
+                className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan w-full md:w-auto"
                 onClick={() => alert('Customer Support: Call 08130222496 or email support@lgcrednigltd.com. Live chat coming soon!')}
               >
                 Get Support
@@ -104,7 +103,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <Separator className="my-8 bg-gray-700" />
+        <Separator className="my-8 md:my-12 bg-gray-700" />
 
         <div className="text-center space-y-3">
           <p className="text-xs text-gray-300">

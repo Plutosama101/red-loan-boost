@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CheckCircle, Clock, Shield, Smartphone } from "lucide-react";
+import logo from "@/assets/lgcred-logo.jpg";
 
 const Hero = () => {
   return (
@@ -86,10 +87,7 @@ const Hero = () => {
                 {/* App Content */}
                 <div className="p-4 space-y-4">
                   <div className="text-center space-y-2">
-                    <div className="w-10 h-10 bg-gradient-primary rounded-xl mx-auto flex items-center justify-center">
-                      <span className="text-white font-bold text-xs">LG</span>
-                    </div>
-                    <h3 className="font-bold text-foreground text-sm">LGCRED</h3>
+                    <img src={logo} alt="LGCRED" className="h-8 mx-auto" />
                   </div>
 
                   <Card className="p-3 space-y-3">

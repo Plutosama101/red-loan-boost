@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 10%;
 
-    --primary: 0 84% 60%;
+    --primary: 350 85% 42%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 0 0% 96%;
@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 0 84% 60%;
+    --accent: 350 85% 42%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84% 60%;
@@ -34,21 +34,21 @@ All colors MUST be HSL.
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 0 84% 60%;
+    --ring: 350 85% 42%;
 
     /* Custom loan website colors */
-    --loan-primary: 0 84% 60%;
-    --loan-primary-dark: 0 84% 50%;
+    --loan-primary: 350 85% 42%;
+    --loan-primary-dark: 350 85% 35%;
     --loan-secondary: 0 0% 10%;
     --loan-light: 0 0% 98%;
     --loan-gray: 0 0% 96%;
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(0 84% 60%), hsl(0 84% 50%));
+    --gradient-primary: linear-gradient(135deg, hsl(350 85% 42%), hsl(350 85% 35%));
     --gradient-dark: linear-gradient(135deg, hsl(0 0% 10%), hsl(0 0% 20%));
     
     /* Shadows */
-    --shadow-loan: 0 10px 30px -10px hsl(0 84% 60% / 0.3);
+    --shadow-loan: 0 10px 30px -10px hsl(350 85% 42% / 0.3);
     --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.1);
 
     --radius: 0.5rem;
@@ -80,7 +80,7 @@ All colors MUST be HSL.
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 0 84% 60%;
+    --primary: 350 85% 42%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 0 0% 15%;
@@ -89,7 +89,7 @@ All colors MUST be HSL.
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 0 84% 60%;
+    --accent: 350 85% 42%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84% 60%;
@@ -97,10 +97,10 @@ All colors MUST be HSL.
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 0 84% 60%;
+    --ring: 350 85% 42%;
 
-    --loan-primary: 0 84% 60%;
-    --loan-primary-dark: 0 84% 50%;
+    --loan-primary: 350 85% 42%;
+    --loan-primary-dark: 350 85% 35%;
     --loan-secondary: 0 0% 98%;
     --loan-light: 0 0% 12%;
     --loan-gray: 0 0% 15%;

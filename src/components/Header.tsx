@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import logo from "@/assets/lgcred-logo.jpg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,14 +11,8 @@ const Header = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-background border-2 border-border rounded-md flex items-center justify-center">
-            <span className="font-bold text-lg">
-              <span className="text-foreground">L</span>
-              <span className="text-destructive">G</span>
-            </span>
-          </div>
-            <span className="text-xl font-bold text-foreground">LGCRED</span>
+          <div className="flex items-center">
+            <img src={logo} alt="LGCRED Nigeria Limited" className="h-10" />
           </div>
 
           {/* Mobile Menu Button */}

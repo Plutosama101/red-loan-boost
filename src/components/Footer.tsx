@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from "lucide-react";
+import logo from "@/assets/lgcred-logo.jpg";
 
 const Footer = () => {
   return (
@@ -9,11 +10,8 @@ const Footer = () => {
         <div className="space-y-8">
           {/* Company Info */}
           <div className="text-center space-y-4">
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-md flex items-center justify-center">
-                <span className="text-white font-bold text-lg">LG</span>
-              </div>
-              <span className="text-xl font-bold">LGCRED</span>
+            <div className="flex items-center justify-center">
+              <img src={logo} alt="LGCRED Nigeria Limited" className="h-12 brightness-0 invert" />
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Empowering financial freedom through fast, secure, and accessible lending solutions. 

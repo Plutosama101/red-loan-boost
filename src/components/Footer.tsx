@@ -22,7 +22,7 @@ const Footer = () => {
                 size="sm" 
                 variant="ghost" 
                 className="text-gray-300 hover:text-white hover:bg-white/10"
-                onClick={() => window.open('https://instagram.com/lgcred', '_blank')}
+                onClick={() => window.open('https://www.instagram.com/lgcred_nig_ltd/', '_blank')}
               >
                 <Instagram className="h-4 w-4" />
               </Button>

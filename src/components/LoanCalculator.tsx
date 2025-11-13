@@ -98,9 +98,9 @@ const LoanCalculator = () => {
 
               <Button 
                 className="w-full bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan py-3"
-                onClick={() => alert(`Apply for ₦${amount[0].toLocaleString()} loan over ${term[0]} months. Monthly payment: ₦${monthlyPayment.toFixed(0)}. Full application form coming soon!`)}
+                onClick={() => window.location.href = '/loans'}
               >
-                Apply for This Loan
+                Choose Loan Type
               </Button>
             </CardContent>
           </Card>
@@ -144,9 +144,9 @@ const LoanCalculator = () => {
                 <Button 
                   variant="secondary" 
                   className="w-full"
-                  onClick={() => alert(`Ready to apply for ₦${amount[0].toLocaleString()}? Monthly payment will be ₦${monthlyPayment.toFixed(0)}. Connect Supabase to enable full application process.`)}
+                  onClick={() => window.location.href = '/loans'}
                 >
-                  Start Application
+                  View Loan Options
                 </Button>
               </div>
             </CardContent>

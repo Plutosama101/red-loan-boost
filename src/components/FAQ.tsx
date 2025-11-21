@@ -1,69 +1,120 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { useState } from "react";
+import { UserCheck, BadgeDollarSign, Clock, Percent, CreditCard } from "lucide-react";
 
 const FAQ = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
   const faqs = [
     {
-      question: "Who is eligible for an LGCRED loan?",
-      answer: "You must be a confirmed staff member of a Local Government in Nigeria with a verifiable source of income and valid documentation. Applicants must have no existing loans with LGCRED or sister companies."
+      question: "Who is eligible?",
+      answer: "Confirmed Local Government staff in Nigeria with verifiable income and valid documentation. No existing LGCRED loans required.",
+      icon: UserCheck,
+      color: "from-blue-500 to-cyan-500"
     },
     {
-      question: "What are the loan amounts and terms?",
-      answer: "Local Government employees can access up to ₦500,000 with repayment periods up to 12 months. SME loans range from ₦100,000 to ₦2,000,000 based on business assessment and repayment capacity."
+      question: "Loan amounts?",
+      answer: "Up to ₦500,000 for LG employees (12 months). ₦100,000 - ₦2,000,000 for SMEs based on assessment.",
+      icon: BadgeDollarSign,
+      color: "from-emerald-500 to-teal-500"
     },
     {
-      question: "How long does approval take?",
-      answer: "Complete applications are reviewed within 3-5 business days. Upon approval, funds are disbursed within 48 hours to your designated bank account."
+      question: "Approval time?",
+      answer: "3-5 business days for review. Funds disbursed within 48 hours of approval to your account.",
+      icon: Clock,
+      color: "from-orange-500 to-amber-500"
     },
     {
-      question: "What are your interest rates?",
-      answer: "Local Government loans carry 15% per annum plus 1% management fee. SME loans have an 18% annual rate, calculated on a reducing balance basis."
+      question: "Interest rates?",
+      answer: "LG loans: 15% p.a. + 1% fee. SME loans: 18% p.a. Calculated on reducing balance basis.",
+      icon: Percent,
+      color: "from-purple-500 to-pink-500"
     },
     {
-      question: "How do I repay my loan?",
-      answer: "Repayment is through automated monthly salary deductions or direct account transfers. Early repayments are welcome without penalty, reducing your overall interest burden."
+      question: "Repayment?",
+      answer: "Automated monthly salary deductions or account transfers. Early repayment welcome without penalty.",
+      icon: CreditCard,
+      color: "from-rose-500 to-red-500"
     }
   ];
 
   return (
-    <section id="faq" className="py-20 px-4 bg-gradient-to-b from-background via-muted/30 to-background">
-      <div className="container mx-auto max-w-4xl">
+    <section id="faq" className="py-20 px-4 bg-gradient-to-b from-background via-muted/30 to-background overflow-hidden">
+      <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <div className="inline-block px-4 py-1.5 mb-4 rounded-full bg-primary/10 text-primary text-sm font-medium">
-            Have Questions?
+            Quick Answers
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
-            Frequently Asked Questions
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            Everything You Need to Know
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Everything you need to know about our loan products and services.
+            Tap any card to learn more about our loan solutions
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="w-full space-y-3">
-          {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="bg-card/50 backdrop-blur-sm rounded-xl border border-border/50 px-6 shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300"
-            >
-              <AccordionTrigger className="text-left hover:no-underline py-6 text-foreground font-semibold group">
-                <span className="group-hover:text-primary transition-colors">
-                  {faq.question}
-                </span>
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pb-6 text-[15px]">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
+          {faqs.map((faq, index) => {
+            const Icon = faq.icon;
+            const isActive = activeIndex === index;
+            
+            return (
+              <div
+                key={index}
+                onClick={() => setActiveIndex(isActive ? null : index)}
+                className={`
+                  relative cursor-pointer group
+                  ${isActive ? 'md:col-span-2 lg:col-span-2' : 'md:col-span-1 lg:col-span-1'}
+                  transition-all duration-500 ease-in-out
+                `}
+              >
+                <div className={`
+                  h-full p-6 rounded-2xl border-2 
+                  bg-gradient-to-br ${faq.color} 
+                  shadow-lg hover:shadow-2xl
+                  transition-all duration-300
+                  ${isActive ? 'scale-105 border-white/50' : 'border-transparent opacity-90 hover:opacity-100'}
+                `}>
+                  <div className="flex flex-col h-full text-white">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="p-3 rounded-xl bg-white/20 backdrop-blur-sm">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <div className={`
+                        w-8 h-8 rounded-full flex items-center justify-center
+                        bg-white/20 backdrop-blur-sm text-xs font-bold
+                        transition-transform duration-300
+                        ${isActive ? 'rotate-45' : ''}
+                      `}>
+                        +
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-xl font-bold mb-3">
+                      {faq.question}
+                    </h3>
+                    
+                    <div className={`
+                      overflow-hidden transition-all duration-500
+                      ${isActive ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
+                    `}>
+                      <p className="text-white/90 text-sm leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                    
+                    {!isActive && (
+                      <p className="text-white/70 text-xs mt-auto">
+                        Click to learn more
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
-        <div className="mt-16 text-center p-8 rounded-2xl bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border border-primary/20">
+        <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border border-primary/20">
           <p className="text-foreground font-medium text-lg mb-4">
             Still have questions?
           </p>

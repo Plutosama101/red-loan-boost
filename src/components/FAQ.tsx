@@ -1,5 +1,10 @@
 import { useState } from "react";
 import { UserCheck, BadgeDollarSign, Clock, Percent, CreditCard } from "lucide-react";
+import eligibilityImg from "@/assets/faq-eligibility.jpg";
+import amountsImg from "@/assets/faq-amounts.jpg";
+import approvalImg from "@/assets/faq-approval.jpg";
+import ratesImg from "@/assets/faq-rates.jpg";
+import repaymentImg from "@/assets/faq-repayment.jpg";
 
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
@@ -9,31 +14,36 @@ const FAQ = () => {
       question: "Who is eligible?",
       answer: "Confirmed Local Government staff in Nigeria with verifiable income and valid documentation. No existing LGCRED loans required.",
       icon: UserCheck,
-      color: "from-blue-500 to-cyan-500"
+      image: eligibilityImg,
+      gradient: "from-loan-primary/90 via-loan-primary to-loan-primary-dark"
     },
     {
       question: "Loan amounts?",
       answer: "Up to ₦500,000 for LG employees (12 months). ₦100,000 - ₦2,000,000 for SMEs based on assessment.",
       icon: BadgeDollarSign,
-      color: "from-emerald-500 to-teal-500"
+      image: amountsImg,
+      gradient: "from-loan-primary/80 via-loan-primary/90 to-loan-primary"
     },
     {
       question: "Approval time?",
       answer: "3-5 business days for review. Funds disbursed within 48 hours of approval to your account.",
       icon: Clock,
-      color: "from-orange-500 to-amber-500"
+      image: approvalImg,
+      gradient: "from-loan-primary-dark via-loan-primary to-loan-primary/80"
     },
     {
       question: "Interest rates?",
       answer: "LG loans: 15% p.a. + 1% fee. SME loans: 18% p.a. Calculated on reducing balance basis.",
       icon: Percent,
-      color: "from-purple-500 to-pink-500"
+      image: ratesImg,
+      gradient: "from-loan-primary via-loan-primary-dark to-loan-secondary/80"
     },
     {
       question: "Repayment?",
       answer: "Automated monthly salary deductions or account transfers. Early repayment welcome without penalty.",
       icon: CreditCard,
-      color: "from-rose-500 to-red-500"
+      image: repaymentImg,
+      gradient: "from-loan-primary-dark/90 via-loan-primary to-loan-primary/90"
     }
   ];
 
@@ -68,19 +78,40 @@ const FAQ = () => {
                 `}
               >
                 <div className={`
-                  h-full p-6 rounded-2xl border-2 
-                  bg-gradient-to-br ${faq.color} 
+                  relative h-full overflow-hidden rounded-2xl border-2 
                   shadow-lg hover:shadow-2xl
                   transition-all duration-300
-                  ${isActive ? 'scale-105 border-white/50' : 'border-transparent opacity-90 hover:opacity-100'}
+                  ${isActive ? 'scale-105 border-primary/30' : 'border-border/50 hover:border-primary/20'}
                 `}>
-                  <div className="flex flex-col h-full text-white">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="p-3 rounded-xl bg-white/20 backdrop-blur-sm">
-                        <Icon className="h-6 w-6" />
+                  {/* Background gradient overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${faq.gradient} opacity-95`} />
+                  
+                  {/* Background image */}
+                  <div className="absolute inset-0 opacity-20">
+                    <img 
+                      src={faq.image} 
+                      alt={faq.question}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="relative p-6 flex flex-col h-full text-white">
+                    <div className="flex items-start gap-3 mb-4">
+                      <div className="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden border-2 border-white/30 shadow-lg">
+                        <img 
+                          src={faq.image} 
+                          alt={faq.question}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold leading-tight">
+                          {faq.question}
+                        </h3>
                       </div>
                       <div className={`
-                        w-8 h-8 rounded-full flex items-center justify-center
+                        flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center
                         bg-white/20 backdrop-blur-sm text-xs font-bold
                         transition-transform duration-300
                         ${isActive ? 'rotate-45' : ''}
@@ -89,21 +120,17 @@ const FAQ = () => {
                       </div>
                     </div>
                     
-                    <h3 className="text-xl font-bold mb-3">
-                      {faq.question}
-                    </h3>
-                    
                     <div className={`
                       overflow-hidden transition-all duration-500
-                      ${isActive ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
+                      ${isActive ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0'}
                     `}>
-                      <p className="text-white/90 text-sm leading-relaxed">
+                      <p className="text-white/95 text-sm leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>
                     
                     {!isActive && (
-                      <p className="text-white/70 text-xs mt-auto">
+                      <p className="text-white/80 text-xs mt-auto pt-4">
                         Click to learn more
                       </p>
                     )}

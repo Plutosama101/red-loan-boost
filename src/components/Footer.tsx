@@ -107,7 +107,7 @@ const Footer = () => {
 
         <div className="text-center space-y-3">
           <p className="text-xs text-gray-300">
-            © 2024 LGCRED. All rights reserved.
+            © 2025 LGCRED. All rights reserved.
           </p>
           <p className="text-xs text-gray-300">
             Licensed by CBN RC #123456

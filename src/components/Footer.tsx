@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="text-center md:text-left space-y-4">
             <div className="flex items-center justify-center md:justify-start">
-              <img src={logo} alt="LGCRED Nigeria Limited" className="h-12 brightness-0 invert" />
+              <img src={logo} alt="LGCRED Nigeria Limited" className="h-16 w-auto object-contain" />
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Empowering financial freedom through fast, secure, and accessible lending solutions.
@@ -58,7 +58,7 @@ const Footer = () => {
                 onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})} 
                 className="text-gray-300 hover:text-white transition-colors text-sm py-2"
               >
-                PTA Loans
+                Proof of Funds (PoF)
               </button>
               <button 
                 onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})} 

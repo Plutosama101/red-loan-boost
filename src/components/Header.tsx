@@ -31,7 +31,7 @@ const Header = () => {
           {/* Desktop Navigation - Hidden on mobile */}
           <nav className="hidden md:flex items-center space-x-6">
             <button 
-              onClick={() => scrollToSection('calculator')}
+              onClick={() => navigate('/loans')}
               className="text-foreground hover:text-primary transition-colors font-medium"
             >
               Loans
@@ -82,7 +82,7 @@ const Header = () => {
           <div className="border-t bg-background md:hidden">
             <nav className="flex flex-col space-y-4 p-4">
               <button 
-                onClick={() => scrollToSection('calculator')}
+                onClick={() => { navigate('/loans'); setIsMenuOpen(false); }}
                 className="text-foreground hover:text-primary transition-colors py-2 text-left"
               >
                 Loans

@@ -80,48 +80,47 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="border-t bg-background md:hidden">
-            <nav className="flex flex-col space-y-4 p-4">
+            <nav className="flex flex-wrap items-center justify-center gap-4 p-4">
               <button 
                 onClick={() => { navigate('/loans'); setIsMenuOpen(false); }}
-                className="text-foreground hover:text-primary transition-colors py-2 text-left"
+                className="text-foreground hover:text-primary transition-colors py-2 px-3"
               >
                 Loans
               </button>
               <button 
                 onClick={() => scrollToSection('calculator')}
-                className="text-foreground hover:text-primary transition-colors py-2 text-left"
+                className="text-foreground hover:text-primary transition-colors py-2 px-3"
               >
                 Calculator
               </button>
               <button 
                 onClick={() => { navigate('/about'); setIsMenuOpen(false); }}
-                className="text-foreground hover:text-primary transition-colors py-2 text-left"
+                className="text-foreground hover:text-primary transition-colors py-2 px-3"
               >
                 About Us
               </button>
               <button 
                 onClick={() => scrollToSection('footer')}
-                className="text-foreground hover:text-primary transition-colors py-2 text-left"
+                className="text-foreground hover:text-primary transition-colors py-2 px-3"
               >
                 Contact
               </button>
-              <div className="flex flex-col space-y-3 pt-4 border-t">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  onClick={() => { alert('Login feature coming soon! Please connect Supabase for user accounts.'); setIsMenuOpen(false); }}
-                >
-                  Login
-                </Button>
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan"
-                  onClick={() => scrollToSection('calculator')}
-                >
-                  Apply Now
-                </Button>
-              </div>
             </nav>
+            <div className="flex gap-3 p-4 border-t">
+              <Button 
+                variant="outline" 
+                className="flex-1"
+                onClick={() => { alert('Login feature coming soon! Please connect Supabase for user accounts.'); setIsMenuOpen(false); }}
+              >
+                Login
+              </Button>
+              <Button 
+                className="flex-1 bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan"
+                onClick={() => scrollToSection('calculator')}
+              >
+                Apply Now
+              </Button>
+            </div>
           </div>
         )}
       </div>

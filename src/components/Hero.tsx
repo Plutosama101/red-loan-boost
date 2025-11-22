@@ -109,12 +109,12 @@ const Hero = () => {
 
                     <div className="space-y-2">
                       <div className="flex items-center justify-between p-2 bg-loan-gray rounded-lg">
-                        <span className="text-xs">SME Loan</span>
-                        <span className="text-xs text-primary">Available</span>
+                        <span className="text-xs">Instant Approval</span>
+                        <CheckCircle className="h-3 w-3 text-primary" />
                       </div>
                       <div className="flex items-center justify-between p-2 bg-loan-gray rounded-lg">
-                        <span className="text-xs">PTA Loan</span>
-                        <span className="text-xs text-primary">Available</span>
+                        <span className="text-xs">Fast Disbursement</span>
+                        <Clock className="h-3 w-3 text-primary" />
                       </div>
                     </div>
                   </div>

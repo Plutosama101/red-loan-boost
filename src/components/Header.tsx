@@ -14,7 +14,10 @@ const Header = () => {
     if (isHomePage) {
       document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     } else {
-      navigate(`/#${sectionId}`);
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 400);
     }
     setIsMenuOpen(false);
   };
@@ -80,28 +83,28 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="border-t bg-background md:hidden">
-            <nav className="flex flex-wrap items-center justify-center gap-4 p-4">
+            <nav className="flex items-center gap-4 p-4 overflow-x-auto whitespace-nowrap">
               <button 
                 onClick={() => { navigate('/loans'); setIsMenuOpen(false); }}
-                className="text-foreground hover:text-primary transition-colors py-2 px-3"
+                className="text-foreground hover:text-primary transition-colors py-2 px-3 flex-shrink-0"
               >
                 Loans
               </button>
               <button 
                 onClick={() => scrollToSection('calculator')}
-                className="text-foreground hover:text-primary transition-colors py-2 px-3"
+                className="text-foreground hover:text-primary transition-colors py-2 px-3 flex-shrink-0"
               >
                 Calculator
               </button>
               <button 
                 onClick={() => { navigate('/about'); setIsMenuOpen(false); }}
-                className="text-foreground hover:text-primary transition-colors py-2 px-3"
+                className="text-foreground hover:text-primary transition-colors py-2 px-3 flex-shrink-0"
               >
                 About Us
               </button>
               <button 
                 onClick={() => scrollToSection('footer')}
-                className="text-foreground hover:text-primary transition-colors py-2 px-3"
+                className="text-foreground hover:text-primary transition-colors py-2 px-3 flex-shrink-0"
               >
                 Contact
               </button>

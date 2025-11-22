@@ -43,7 +43,7 @@ const Hero = () => {
                 <Button 
                   size="lg" 
                   className="w-full sm:w-auto bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan text-lg py-6 px-8"
-                  onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})}
+                  onClick={() => window.location.href = '/loans'}
                 >
                   Get Loan Now
                 </Button>

@@ -144,9 +144,9 @@ const LoanCalculator = () => {
                 <Button 
                   variant="secondary" 
                   className="w-full"
-                  onClick={() => window.location.href = '/loans'}
+                  onClick={() => window.location.href = '/apply'}
                 >
-                  View Loan Options
+                  Apply Now
                 </Button>
               </div>
             </CardContent>

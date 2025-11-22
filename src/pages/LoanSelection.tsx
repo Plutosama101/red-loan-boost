@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building2, Briefcase, ChevronRight } from "lucide-react";
+import localGovImage from "@/assets/local-government-loan.jpg";
+import smeImage from "@/assets/sme-loan.jpg";
 
 const LoanSelection = () => {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ const LoanSelection = () => {
       title: "Local Government Loan",
       description: "For local government employees with stable income",
       icon: Building2,
+      image: localGovImage,
       features: [
         "Letter from LG Chairman required",
         "Salary account verification",
@@ -28,6 +31,7 @@ const LoanSelection = () => {
       title: "SME Loan",
       description: "For small and medium enterprises seeking business growth",
       icon: Briefcase,
+      image: smeImage,
       features: [
         "Business account required",
         "CAC certificate needed",
@@ -58,14 +62,22 @@ const LoanSelection = () => {
             {loanTypes.map((loan) => {
               const Icon = loan.icon;
               return (
-                <Card key={loan.id} className="shadow-loan-card hover:shadow-loan transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center space-x-3 mb-2">
-                      <div className="p-3 bg-primary/10 rounded-lg">
-                        <Icon className="h-6 w-6 text-primary" />
+                <Card key={loan.id} className="shadow-loan-card hover:shadow-loan transition-all overflow-hidden group">
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={loan.image} 
+                      alt={loan.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/50 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center space-x-3">
+                      <div className="p-3 bg-primary/90 backdrop-blur-sm rounded-lg">
+                        <Icon className="h-6 w-6 text-primary-foreground" />
                       </div>
-                      <CardTitle className="text-xl md:text-2xl">{loan.title}</CardTitle>
+                      <CardTitle className="text-xl md:text-2xl text-foreground">{loan.title}</CardTitle>
                     </div>
+                  </div>
+                  <CardHeader className="pt-4">
                     <CardDescription className="text-base">
                       {loan.description}
                     </CardDescription>

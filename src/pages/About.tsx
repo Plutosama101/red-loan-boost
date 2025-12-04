@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, Users, TrendingUp, Award, Clock, CheckCircle } from "lucide-react";
+import { Shield, TrendingUp, Award, Clock, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const About = () => {
@@ -149,29 +149,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Section Placeholder */}
-      <section className="py-12 md:py-16 px-4 bg-loan-gray">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center space-y-4 mb-12">
-            <Users className="h-12 w-12 text-primary mx-auto" />
-            <h2 className="text-2xl md:text-4xl font-bold text-foreground">Our Team</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Meet the dedicated professionals who make LGCRED Nigeria's trusted lending partner.
-            </p>
-          </div>
-
-          <div className="bg-white rounded-lg p-8 md:p-12 shadow-loan-card text-center space-y-6">
-            <p className="text-muted-foreground">
-              Our experienced team of financial experts, technology specialists, and customer service 
-              professionals work together to provide you with the best lending experience. We are 
-              committed to understanding your unique needs and delivering tailored solutions.
-            </p>
-            <p className="text-sm text-muted-foreground italic">
-              Team member profiles and photos coming soon...
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-12 md:py-16 px-4">

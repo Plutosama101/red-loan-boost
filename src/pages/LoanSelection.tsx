@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Building2, Briefcase, ChevronRight } from "lucide-react";
+import { Building2, Briefcase, User, FileCheck, ChevronRight } from "lucide-react";
 import localGovImage from "@/assets/local-government-loan.jpg";
 import smeImage from "@/assets/sme-loan.jpg";
 
@@ -40,6 +40,36 @@ const LoanSelection = () => {
         "Business account statement (1 year minimum)"
       ],
       path: "/loans/sme"
+    },
+    {
+      id: "individual",
+      title: "Individual Loan",
+      description: "Personal loans for salaried employees and individuals",
+      icon: User,
+      image: localGovImage,
+      features: [
+        "Valid means of identification",
+        "Proof of employment or income",
+        "Bank statement (6 months)",
+        "Utility bill for address verification",
+        "Guarantor required"
+      ],
+      path: "/loans/individual"
+    },
+    {
+      id: "proof-of-funds",
+      title: "Proof of Funds",
+      description: "Financial documentation for visa, travel, or business purposes",
+      icon: FileCheck,
+      image: smeImage,
+      features: [
+        "Valid international passport",
+        "Travel itinerary or invitation letter",
+        "Bank account details",
+        "Quick processing time",
+        "Official bank letter provided"
+      ],
+      path: "/loans/proof-of-funds"
     }
   ];
 

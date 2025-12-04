@@ -8,6 +8,8 @@ import About from "./pages/About";
 import LoanSelection from "./pages/LoanSelection";
 import LocalGovernmentLoan from "./pages/LocalGovernmentLoan";
 import SMELoan from "./pages/SMELoan";
+import IndividualLoan from "./pages/IndividualLoan";
+import ProofOfFundsLoan from "./pages/ProofOfFundsLoan";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +26,8 @@ const App = () => (
           <Route path="/loans" element={<LoanSelection />} />
           <Route path="/loans/local-government" element={<LocalGovernmentLoan />} />
           <Route path="/loans/sme" element={<SMELoan />} />
+          <Route path="/loans/individual" element={<IndividualLoan />} />
+          <Route path="/loans/proof-of-funds" element={<ProofOfFundsLoan />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

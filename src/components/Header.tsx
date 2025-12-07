@@ -58,12 +58,6 @@ const Header = () => {
               Contact
             </button>
             <Button 
-              variant="outline"
-              onClick={() => alert('Login feature coming soon! Please connect Supabase for user accounts.')}
-            >
-              Login
-            </Button>
-            <Button 
               className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan"
               onClick={() => scrollToSection('calculator')}
             >
@@ -110,13 +104,6 @@ const Header = () => {
               </button>
             </nav>
             <div className="flex gap-3 p-4 border-t">
-              <Button 
-                variant="outline" 
-                className="flex-1"
-                onClick={() => { alert('Login feature coming soon! Please connect Supabase for user accounts.'); setIsMenuOpen(false); }}
-              >
-                Login
-              </Button>
               <Button 
                 className="flex-1 bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan"
                 onClick={() => scrollToSection('calculator')}

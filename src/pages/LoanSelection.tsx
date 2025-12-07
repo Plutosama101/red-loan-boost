@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Building2, Briefcase, User, FileCheck, ChevronRight } from "lucide-react";
 import localGovImage from "@/assets/local-government-loan.jpg";
 import smeImage from "@/assets/sme-loan.jpg";
+import individualImage from "@/assets/individual-loan.jpg";
+import proofOfFundsImage from "@/assets/proof-of-funds-loan.jpg";
 
 const LoanSelection = () => {
   const navigate = useNavigate();
@@ -46,7 +48,7 @@ const LoanSelection = () => {
       title: "Individual Loan",
       description: "Personal loans for salaried employees and individuals",
       icon: User,
-      image: localGovImage,
+      image: individualImage,
       features: [
         "Valid means of identification",
         "Proof of employment or income",
@@ -61,7 +63,7 @@ const LoanSelection = () => {
       title: "Proof of Funds",
       description: "Financial documentation for visa, travel, or business purposes",
       icon: FileCheck,
-      image: smeImage,
+      image: proofOfFundsImage,
       features: [
         "Valid international passport",
         "Travel itinerary or invitation letter",

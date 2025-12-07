@@ -43,6 +43,12 @@ All colors MUST be HSL.
     --loan-light: 0 0% 98%;
     --loan-gray: 0 0% 96%;
     
+    /* Header colors - dark theme like portfolio */
+    --header: 200 20% 10%;
+    --header-foreground: 180 5% 70%;
+    --header-accent: 174 72% 56%;
+    --header-border: 200 15% 15%;
+    
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(350 85% 42%), hsl(350 85% 35%));
     --gradient-dark: linear-gradient(135deg, hsl(0 0% 10%), hsl(0 0% 20%));
@@ -104,6 +110,12 @@ All colors MUST be HSL.
     --loan-secondary: 0 0% 98%;
     --loan-light: 0 0% 12%;
     --loan-gray: 0 0% 15%;
+    
+    /* Header colors - same dark theme */
+    --header: 200 20% 10%;
+    --header-foreground: 180 5% 70%;
+    --header-accent: 174 72% 56%;
+    --header-border: 200 15% 15%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

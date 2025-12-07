@@ -22,8 +22,15 @@ const Header = () => {
     setIsMenuOpen(false);
   };
 
+  const navItems = [
+    { number: "01", label: "Loans", action: () => navigate('/loans') },
+    { number: "02", label: "Calculator", action: () => scrollToSection('calculator') },
+    { number: "03", label: "About", action: () => navigate('/about') },
+    { number: "04", label: "Contact", action: () => scrollToSection('footer') },
+  ];
+
   return (
-    <header className="bg-background border-b sticky top-0 z-50">
+    <header className="bg-header border-b border-header-border sticky top-0 z-50">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -31,35 +38,22 @@ const Header = () => {
             <img src={logo} alt="LGCRED Nigeria Limited" className="h-10" />
           </div>
 
-          {/* Desktop Navigation - Hidden on mobile */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <button 
-              onClick={() => navigate('/loans')}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Loans
-            </button>
-            <button 
-              onClick={() => scrollToSection('calculator')}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Calculator
-            </button>
-            <button 
-              onClick={() => navigate('/about')}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              About Us
-            </button>
-            <button 
-              onClick={() => scrollToSection('footer')}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              Contact
-            </button>
-            <Button 
-              className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan"
-              onClick={() => scrollToSection('calculator')}
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <button
+                key={item.number}
+                onClick={item.action}
+                className="text-header-foreground hover:text-header-accent transition-colors font-mono text-sm tracking-wide group"
+              >
+                <span className="text-header-accent">{item.number}.</span>{" "}
+                <span className="group-hover:text-header-accent">{item.label}</span>
+              </button>
+            ))}
+            <Button
+              variant="outline"
+              className="border-header-accent text-header-accent hover:bg-header-accent hover:text-header font-mono text-sm px-5"
+              onClick={() => navigate('/apply')}
             >
               Apply Now
             </Button>
@@ -67,7 +61,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="p-2 md:hidden"
+            className="p-2 md:hidden text-header-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -76,41 +70,26 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="border-t bg-background md:hidden">
-            <nav className="flex items-center gap-4 p-4 overflow-x-auto whitespace-nowrap">
-              <button 
-                onClick={() => { navigate('/loans'); setIsMenuOpen(false); }}
-                className="text-foreground hover:text-primary transition-colors py-2 px-3 flex-shrink-0"
-              >
-                Loans
-              </button>
-              <button 
-                onClick={() => scrollToSection('calculator')}
-                className="text-foreground hover:text-primary transition-colors py-2 px-3 flex-shrink-0"
-              >
-                Calculator
-              </button>
-              <button 
-                onClick={() => { navigate('/about'); setIsMenuOpen(false); }}
-                className="text-foreground hover:text-primary transition-colors py-2 px-3 flex-shrink-0"
-              >
-                About Us
-              </button>
-              <button 
-                onClick={() => scrollToSection('footer')}
-                className="text-foreground hover:text-primary transition-colors py-2 px-3 flex-shrink-0"
-              >
-                Contact
-              </button>
-            </nav>
-            <div className="flex gap-3 p-4 border-t">
-              <Button 
-                className="flex-1 bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan"
-                onClick={() => scrollToSection('calculator')}
+          <div className="border-t border-header-border bg-header md:hidden animate-fade-in">
+            <nav className="flex flex-col p-4 space-y-4">
+              {navItems.map((item) => (
+                <button
+                  key={item.number}
+                  onClick={() => { item.action(); setIsMenuOpen(false); }}
+                  className="text-header-foreground hover:text-header-accent transition-colors font-mono text-sm text-left py-2"
+                >
+                  <span className="text-header-accent">{item.number}.</span>{" "}
+                  {item.label}
+                </button>
+              ))}
+              <Button
+                variant="outline"
+                className="border-header-accent text-header-accent hover:bg-header-accent hover:text-header font-mono text-sm w-full mt-2"
+                onClick={() => { navigate('/apply'); setIsMenuOpen(false); }}
               >
                 Apply Now
               </Button>
-            </div>
+            </nav>
           </div>
         )}
       </div>

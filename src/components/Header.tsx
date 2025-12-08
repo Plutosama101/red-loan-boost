@@ -35,10 +35,10 @@ const Header = () => {
   };
 
   const navItems = [
-    { number: "01", label: "Loans", action: () => navigate('/loans') },
-    { number: "02", label: "Calculator", action: () => scrollToSection('calculator') },
-    { number: "03", label: "About", action: () => navigate('/about') },
-    { number: "04", label: "Contact", action: () => scrollToSection('footer') },
+    { label: "Loans", action: () => navigate('/loans') },
+    { label: "Calculator", action: () => scrollToSection('calculator') },
+    { label: "About", action: () => navigate('/about') },
+    { label: "Contact", action: () => scrollToSection('footer') },
   ];
 
   return (
@@ -54,17 +54,15 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <button
-                key={item.number}
+                key={item.label}
                 onClick={item.action}
-                className="text-header-foreground hover:text-header-accent transition-colors font-mono text-sm tracking-wide group"
+                className="text-header-foreground hover:text-header-accent transition-colors font-mono text-sm tracking-wide"
               >
-                <span className="text-header-accent">{item.number}.</span>{" "}
-                <span className="group-hover:text-header-accent">{item.label}</span>
+                {item.label}
               </button>
             ))}
             <Button
-              variant="outline"
-              className="border-header-accent text-header-accent hover:bg-header-accent hover:text-header font-mono text-sm px-5"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-sm px-5"
               onClick={() => navigate('/apply')}
             >
               Apply Now
@@ -107,7 +105,7 @@ const Header = () => {
           <div className="space-y-8">
             {navItems.map((item, index) => (
               <div
-                key={item.number}
+                key={item.label}
                 className={`overflow-hidden ${isMenuOpen ? 'animate-slide-up' : ''}`}
                 style={{ 
                   animationDelay: isMenuOpen ? `${index * 100 + 100}ms` : '0ms',
@@ -116,11 +114,8 @@ const Header = () => {
               >
                 <button
                   onClick={() => { item.action(); setIsMenuOpen(false); }}
-                  className="group flex items-center gap-4 text-header-foreground hover:text-header-accent transition-all duration-300"
+                  className="group text-header-foreground hover:text-header-accent transition-all duration-300"
                 >
-                  <span className="text-header-accent font-mono text-lg opacity-60 group-hover:opacity-100 transition-opacity">
-                    {item.number}
-                  </span>
                   <span className="text-3xl font-bold tracking-wide relative">
                     {item.label}
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-header-accent transition-all duration-300 group-hover:w-full" />
@@ -138,8 +133,7 @@ const Header = () => {
               }}
             >
               <Button
-                variant="outline"
-                className="border-2 border-header-accent text-header-accent hover:bg-header-accent hover:text-white font-mono text-lg px-10 py-6 transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--header-accent)/0.4)]"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-mono text-lg px-10 py-6 transition-all duration-300 hover:shadow-[0_0_30px_hsl(var(--primary)/0.4)]"
                 onClick={() => { navigate('/apply'); setIsMenuOpen(false); }}
               >
                 Apply Now

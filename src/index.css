@@ -43,11 +43,14 @@ All colors MUST be HSL.
     --loan-light: 0 0% 98%;
     --loan-gray: 0 0% 96%;
     
-    /* Header colors - dark theme like portfolio */
+    /* Header colors - dark theme with LGCRED red accent */
     --header: 200 20% 10%;
-    --header-foreground: 180 5% 70%;
-    --header-accent: 174 72% 56%;
+    --header-foreground: 0 0% 90%;
+    --header-accent: 350 85% 42%;
     --header-border: 200 15% 15%;
+    
+    /* Mobile menu */
+    --menu-overlay: 0 0% 5%;
     
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(350 85% 42%), hsl(350 85% 35%));
@@ -111,11 +114,14 @@ All colors MUST be HSL.
     --loan-light: 0 0% 12%;
     --loan-gray: 0 0% 15%;
     
-    /* Header colors - same dark theme */
+    /* Header colors - same dark theme with LGCRED red accent */
     --header: 200 20% 10%;
-    --header-foreground: 180 5% 70%;
-    --header-accent: 174 72% 56%;
+    --header-foreground: 0 0% 90%;
+    --header-accent: 350 85% 42%;
     --header-border: 200 15% 15%;
+    
+    /* Mobile menu */
+    --menu-overlay: 0 0% 5%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

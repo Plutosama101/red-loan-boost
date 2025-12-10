@@ -102,11 +102,11 @@ const Header = () => {
         
         {/* Menu Content */}
         <nav className="relative h-full flex flex-col items-center justify-center">
-          <div className="space-y-8">
+          <div className="flex flex-col items-center space-y-6">
             {navItems.map((item, index) => (
               <div
                 key={item.label}
-                className={`overflow-hidden ${isMenuOpen ? 'animate-slide-up' : ''}`}
+                className={`overflow-hidden text-center ${isMenuOpen ? 'animate-slide-up' : ''}`}
                 style={{ 
                   animationDelay: isMenuOpen ? `${index * 100 + 100}ms` : '0ms',
                   opacity: isMenuOpen ? undefined : 0
@@ -124,9 +124,9 @@ const Header = () => {
               </div>
             ))}
             
-            {/* Apply Now Button */}
+            {/* Buttons Container */}
             <div
-              className={`pt-6 overflow-hidden ${isMenuOpen ? 'animate-slide-up' : ''}`}
+              className={`pt-6 flex flex-col items-center gap-4 overflow-hidden ${isMenuOpen ? 'animate-slide-up' : ''}`}
               style={{ 
                 animationDelay: isMenuOpen ? '500ms' : '0ms',
                 opacity: isMenuOpen ? undefined : 0
@@ -137,6 +137,16 @@ const Header = () => {
                 onClick={() => { navigate('/apply'); setIsMenuOpen(false); }}
               >
                 Apply Now
+              </Button>
+              <Button
+                variant="outline"
+                className="border-header-foreground/30 text-header-foreground hover:bg-header-foreground/10 font-mono text-sm px-8 py-5"
+                onClick={() => { 
+                  window.open('https://wa.me/2348130222496', '_blank');
+                  setIsMenuOpen(false); 
+                }}
+              >
+                Get Support
               </Button>
             </div>
           </div>

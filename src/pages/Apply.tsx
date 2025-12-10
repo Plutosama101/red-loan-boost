@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle } from "lucide-react";
 
@@ -79,12 +80,24 @@ const Apply = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, loading: authLoading } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   
   const defaultLoanType = searchParams.get("type") as FormData["loan_type"] | null;
   const defaultAmount = searchParams.get("amount");
   const defaultPeriod = searchParams.get("period");
+
+  // Redirect to auth if not logged in
+  useEffect(() => {
+    if (!authLoading && !user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to submit a loan application.",
+      });
+      navigate("/auth");
+    }
+  }, [user, authLoading, navigate, toast]);
 
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -98,12 +111,23 @@ const Apply = () => {
   const selectedLoanType = watch("loan_type");
 
   const onSubmit = async (data: FormData) => {
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to submit a loan application.",
+        variant: "destructive",
+      });
+      navigate("/auth");
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
       const { error } = await supabase
         .from("loan_applications")
         .insert({
+          user_id: user.id,
           full_name: data.full_name,
           email: data.email,
           phone_number: data.phone_number,
@@ -151,6 +175,14 @@ const Apply = () => {
       setIsSubmitting(false);
     }
   };
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   if (isSubmitted) {
     return (

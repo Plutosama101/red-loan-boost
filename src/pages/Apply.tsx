@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +12,6 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle } from "lucide-react";
 
@@ -80,24 +79,12 @@ const Apply = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, loading: authLoading } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   
   const defaultLoanType = searchParams.get("type") as FormData["loan_type"] | null;
   const defaultAmount = searchParams.get("amount");
   const defaultPeriod = searchParams.get("period");
-
-  // Redirect to auth if not logged in
-  useEffect(() => {
-    if (!authLoading && !user) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to submit a loan application.",
-      });
-      navigate("/auth");
-    }
-  }, [user, authLoading, navigate, toast]);
 
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -111,23 +98,12 @@ const Apply = () => {
   const selectedLoanType = watch("loan_type");
 
   const onSubmit = async (data: FormData) => {
-    if (!user) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to submit a loan application.",
-        variant: "destructive",
-      });
-      navigate("/auth");
-      return;
-    }
-
     setIsSubmitting(true);
     
     try {
       const { error } = await supabase
         .from("loan_applications")
         .insert({
-          user_id: user.id,
           full_name: data.full_name,
           email: data.email,
           phone_number: data.phone_number,
@@ -175,14 +151,6 @@ const Apply = () => {
       setIsSubmitting(false);
     }
   };
-
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
 
   if (isSubmitted) {
     return (
@@ -398,24 +366,20 @@ const Apply = () => {
                     <Label htmlFor="monthly_income">Monthly Revenue (₦)</Label>
                     <Input id="monthly_income" {...register("monthly_income")} placeholder="e.g. 500000" />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="employer_address">Business Address</Label>
-                    <Input id="employer_address" {...register("employer_address")} placeholder="Enter business address" />
-                  </div>
                 </CardContent>
               </Card>
             )}
 
-            {/* Proof of Funds specific fields */}
+            {/* Travel Information for Proof of Funds */}
             {selectedLoanType === "proof_of_funds" && (
               <Card>
                 <CardHeader>
                   <CardTitle className="text-xl">Travel Information</CardTitle>
-                  <CardDescription>Provide your travel and passport details</CardDescription>
+                  <CardDescription>Provide details about your travel plans</CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-6 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="passport_number">International Passport Number</Label>
+                    <Label htmlFor="passport_number">Passport Number</Label>
                     <Input id="passport_number" {...register("passport_number")} placeholder="Enter passport number" />
                   </div>
                   <div className="space-y-2">
@@ -434,7 +398,7 @@ const Apply = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-xl">Bank Information</CardTitle>
-                <CardDescription>Provide your bank account details for disbursement</CardDescription>
+                <CardDescription>Provide your bank details for disbursement</CardDescription>
               </CardHeader>
               <CardContent className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
@@ -457,7 +421,7 @@ const Apply = () => {
                   {errors.account_number && <p className="text-sm text-destructive">{errors.account_number.message}</p>}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="bvn">BVN *</Label>
+                  <Label htmlFor="bvn">BVN (Bank Verification Number) *</Label>
                   <Input id="bvn" {...register("bvn")} placeholder="11-digit BVN" maxLength={11} />
                   {errors.bvn && <p className="text-sm text-destructive">{errors.bvn.message}</p>}
                 </div>
@@ -465,54 +429,54 @@ const Apply = () => {
             </Card>
 
             {/* Guarantor Information */}
-            {selectedLoanType !== "proof_of_funds" && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-xl">Guarantor Information</CardTitle>
-                  <CardDescription>Provide details of your guarantor</CardDescription>
-                </CardHeader>
-                <CardContent className="grid gap-6 md:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="guarantor_name">Guarantor Full Name</Label>
-                    <Input id="guarantor_name" {...register("guarantor_name")} placeholder="Enter guarantor name" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="guarantor_phone">Guarantor Phone Number</Label>
-                    <Input id="guarantor_phone" {...register("guarantor_phone")} placeholder="08012345678" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="guarantor_relationship">Relationship</Label>
-                    <Select onValueChange={(v) => setValue("guarantor_relationship", v)}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select relationship" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="family">Family Member</SelectItem>
-                        <SelectItem value="friend">Friend</SelectItem>
-                        <SelectItem value="colleague">Colleague</SelectItem>
-                        <SelectItem value="business_partner">Business Partner</SelectItem>
-                        <SelectItem value="employer">Employer</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="guarantor_address">Guarantor Address</Label>
-                    <Input id="guarantor_address" {...register("guarantor_address")} placeholder="Enter guarantor address" />
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Guarantor Information</CardTitle>
+                <CardDescription>Provide details of someone who can guarantee your loan</CardDescription>
+              </CardHeader>
+              <CardContent className="grid gap-6 md:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="guarantor_name">Guarantor Full Name</Label>
+                  <Input id="guarantor_name" {...register("guarantor_name")} placeholder="Enter guarantor's name" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="guarantor_phone">Guarantor Phone Number</Label>
+                  <Input id="guarantor_phone" {...register("guarantor_phone")} placeholder="08012345678" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="guarantor_relationship">Relationship</Label>
+                  <Select onValueChange={(v) => setValue("guarantor_relationship", v)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select relationship" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="spouse">Spouse</SelectItem>
+                      <SelectItem value="parent">Parent</SelectItem>
+                      <SelectItem value="sibling">Sibling</SelectItem>
+                      <SelectItem value="colleague">Colleague</SelectItem>
+                      <SelectItem value="friend">Friend</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="guarantor_address">Guarantor Address</Label>
+                  <Input id="guarantor_address" {...register("guarantor_address")} placeholder="Enter guarantor's address" />
+                </div>
+              </CardContent>
+            </Card>
 
-            {/* Submit Button */}
-            <div className="flex justify-end">
+            {/* Submit */}
+            <div className="flex justify-center">
               <Button 
                 type="submit" 
-                className="w-full md:w-auto bg-gradient-primary text-white px-12 py-6 text-lg"
+                size="lg" 
+                className="bg-gradient-primary text-white px-12"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Submitting...
                   </>
                 ) : (
@@ -523,7 +487,7 @@ const Apply = () => {
           </form>
         </div>
       </section>
-
+      
       <Footer />
     </div>
   );

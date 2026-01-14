@@ -227,9 +227,9 @@ const LocalGovernmentLoan = () => {
                     <Button 
                       variant="secondary" 
                       className="w-full"
-                      onClick={() => alert(`Application for ₦${amount[0].toLocaleString()} Local Government Loan. Monthly payment: ₦${monthlyPayment.toLocaleString('en-NG', { maximumFractionDigits: 0 })}. Full application form coming soon!`)}
+                      onClick={() => navigate('/apply')}
                     >
-                      Start Application
+                      Download Application Form
                     </Button>
                   </div>
                 </CardContent>

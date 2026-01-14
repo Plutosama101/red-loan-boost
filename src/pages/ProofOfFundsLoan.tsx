@@ -192,9 +192,9 @@ const ProofOfFundsLoan = () => {
 
                   <Button 
                     className="w-full bg-gradient-primary hover:bg-loan-primary-dark text-white py-6 text-lg"
-                    onClick={() => alert('Application form coming soon!')}
+                    onClick={() => navigate('/apply')}
                   >
-                    Request Service
+                    Download Application Form
                   </Button>
 
                   <p className="text-xs text-center text-muted-foreground">

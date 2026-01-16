@@ -1,44 +1,12 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Building2, Briefcase, User, FileCheck, Download, FileText, Phone, Mail, MapPin } from "lucide-react";
-
-const loanTypes = [
-  {
-    id: "local_government",
-    title: "Local Government Loan",
-    description: "Application form for local government employees",
-    icon: Building2,
-    filename: "LGCRED_Local_Government_Loan_Application.pdf"
-  },
-  {
-    id: "sme",
-    title: "SME Loan",
-    description: "Application form for small and medium enterprises",
-    icon: Briefcase,
-    filename: "LGCRED_SME_Loan_Application.pdf"
-  },
-  {
-    id: "individual",
-    title: "Individual Loan",
-    description: "Personal loan application form",
-    icon: User,
-    filename: "LGCRED_Individual_Loan_Application.pdf"
-  },
-  {
-    id: "proof_of_funds",
-    title: "Proof of Funds",
-    description: "Application form for proof of funds documentation",
-    icon: FileCheck,
-    filename: "LGCRED_Proof_of_Funds_Application.pdf"
-  }
-];
+import { Download, FileText, Phone, Mail, MapPin } from "lucide-react";
 
 const Apply = () => {
-  const handleDownload = (loanType: typeof loanTypes[0]) => {
-    // Create a printable HTML form that opens in a new tab
-    const formContent = generateFormHTML(loanType);
+  const handleDownload = () => {
+    const formContent = generateFormHTML();
     const newWindow = window.open('', '_blank');
     if (newWindow) {
       newWindow.document.write(formContent);
@@ -46,18 +14,17 @@ const Apply = () => {
     }
   };
 
-  const generateFormHTML = (loanType: typeof loanTypes[0]) => {
-    const additionalFields = getAdditionalFields(loanType.id);
-    
+  const generateFormHTML = () => {
     return `
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LGCRED - ${loanType.title} Application Form</title>
+  <title>LGCRED - Loan Application Form</title>
   <style>
     @media print {
       body { margin: 0; padding: 20px; }
       .no-print { display: none !important; }
+      .page-break { page-break-before: always; }
     }
     * { box-sizing: border-box; }
     body {
@@ -190,6 +157,18 @@ const Apply = () => {
       background: #f9f9f9;
       border-radius: 5px;
     }
+    .loan-type-section {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px dashed #ccc;
+      background: #fefefe;
+    }
+    .loan-type-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #1a5f2a;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -197,11 +176,21 @@ const Apply = () => {
   
   <div class="header">
     <h1>LGCRED</h1>
-    <h2>${loanType.title} Application Form</h2>
+    <h2>Loan Application Form</h2>
   </div>
 
   <div class="section">
-    <h3 class="section-title">SECTION A: PERSONAL INFORMATION</h3>
+    <h3 class="section-title">SECTION A: LOAN TYPE (Please tick one)</h3>
+    <div class="checkbox-group">
+      <label class="checkbox-item"><input type="checkbox" /> Local Government Loan</label>
+      <label class="checkbox-item"><input type="checkbox" /> SME Loan</label>
+      <label class="checkbox-item"><input type="checkbox" /> Individual Loan</label>
+      <label class="checkbox-item"><input type="checkbox" /> Proof of Funds</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3 class="section-title">SECTION B: PERSONAL INFORMATION</h3>
     <div class="form-row">
       <div class="form-group">
         <label>Full Name (As on ID)</label>
@@ -250,7 +239,7 @@ const Apply = () => {
   </div>
 
   <div class="section">
-    <h3 class="section-title">SECTION B: LOAN DETAILS</h3>
+    <h3 class="section-title">SECTION C: LOAN DETAILS</h3>
     <div class="form-row">
       <div class="form-group">
         <label>Loan Amount Requested (₦)</label>
@@ -269,10 +258,121 @@ const Apply = () => {
     </div>
   </div>
 
-  ${additionalFields}
+  <div class="section">
+    <h3 class="section-title">SECTION D: EMPLOYMENT / BUSINESS INFORMATION</h3>
+    <p style="font-size: 12px; color: #666; margin-bottom: 15px;"><em>Complete the section that applies to your loan type</em></p>
+    
+    <div class="loan-type-section">
+      <div class="loan-type-title">For Individual/Local Government Loans:</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Employment Status</label>
+          <div class="checkbox-group" style="margin-top: 5px;">
+            <label class="checkbox-item"><input type="checkbox" /> Employed</label>
+            <label class="checkbox-item"><input type="checkbox" /> Self-Employed</label>
+            <label class="checkbox-item"><input type="checkbox" /> Civil Servant</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Monthly Income (₦)</label>
+          <input type="text" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Employer/Organization Name</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Position/Job Title</label>
+          <input type="text" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full">
+          <label>Employer Address</label>
+          <textarea></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="loan-type-section">
+      <div class="loan-type-title">For SME Loans:</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Business Name</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>CAC Registration Number</label>
+          <input type="text" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Business Type</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Monthly Revenue (₦)</label>
+          <input type="text" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full">
+          <label>Business Address</label>
+          <textarea></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Years in Business</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Number of Employees</label>
+          <input type="text" />
+        </div>
+      </div>
+    </div>
+
+    <div class="loan-type-section">
+      <div class="loan-type-title">For Proof of Funds:</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>International Passport Number</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Passport Expiry Date</label>
+          <input type="text" placeholder="DD/MM/YYYY" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Travel Destination (Country)</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Purpose of Travel</label>
+          <input type="text" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Intended Travel Date</label>
+          <input type="text" placeholder="DD/MM/YYYY" />
+        </div>
+        <div class="form-group">
+          <label>Duration of Stay</label>
+          <input type="text" />
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="section">
-    <h3 class="section-title">SECTION ${loanType.id === 'proof_of_funds' ? 'D' : loanType.id === 'sme' ? 'D' : 'D'}: BANK DETAILS</h3>
+    <h3 class="section-title">SECTION E: BANK DETAILS</h3>
     <div class="form-row">
       <div class="form-group">
         <label>Bank Name</label>
@@ -296,7 +396,7 @@ const Apply = () => {
   </div>
 
   <div class="section">
-    <h3 class="section-title">SECTION E: GUARANTOR INFORMATION</h3>
+    <h3 class="section-title">SECTION F: GUARANTOR INFORMATION</h3>
     <div class="form-row">
       <div class="form-group">
         <label>Guarantor Full Name</label>
@@ -361,9 +461,9 @@ const Apply = () => {
       <li>Recent passport photograph</li>
       <li>Bank statement (minimum 6 months)</li>
       <li>Proof of income or employment letter</li>
-      ${loanType.id === 'sme' ? '<li>CAC Certificate</li>' : ''}
-      ${loanType.id === 'local_government' ? '<li>Letter from LG Chairman</li><li>Post-dated cheques</li>' : ''}
-      ${loanType.id === 'proof_of_funds' ? '<li>International passport data page</li><li>Travel itinerary or visa appointment letter</li>' : ''}
+      <li>For SME Loans: CAC Certificate</li>
+      <li>For Local Government Loans: Letter from LG Chairman, Post-dated cheques</li>
+      <li>For Proof of Funds: International passport data page, Travel itinerary or visa appointment letter</li>
     </ul>
   </div>
 
@@ -377,176 +477,45 @@ const Apply = () => {
     `;
   };
 
-  const getAdditionalFields = (loanTypeId: string) => {
-    switch (loanTypeId) {
-      case 'local_government':
-      case 'individual':
-        return `
-  <div class="section">
-    <h3 class="section-title">SECTION C: EMPLOYMENT INFORMATION</h3>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Employment Status</label>
-        <div class="checkbox-group" style="margin-top: 5px;">
-          <label class="checkbox-item"><input type="checkbox" /> Employed</label>
-          <label class="checkbox-item"><input type="checkbox" /> Self-Employed</label>
-          <label class="checkbox-item"><input type="checkbox" /> Civil Servant</label>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Monthly Income (₦)</label>
-        <input type="text" />
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Employer/Organization Name</label>
-        <input type="text" />
-      </div>
-      <div class="form-group">
-        <label>Position/Job Title</label>
-        <input type="text" />
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group full">
-        <label>Employer Address</label>
-        <textarea></textarea>
-      </div>
-    </div>
-  </div>
-        `;
-      case 'sme':
-        return `
-  <div class="section">
-    <h3 class="section-title">SECTION C: BUSINESS INFORMATION</h3>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Business Name</label>
-        <input type="text" />
-      </div>
-      <div class="form-group">
-        <label>CAC Registration Number</label>
-        <input type="text" />
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Business Type</label>
-        <input type="text" />
-      </div>
-      <div class="form-group">
-        <label>Monthly Revenue (₦)</label>
-        <input type="text" />
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group full">
-        <label>Business Address</label>
-        <textarea></textarea>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Years in Business</label>
-        <input type="text" />
-      </div>
-      <div class="form-group">
-        <label>Number of Employees</label>
-        <input type="text" />
-      </div>
-    </div>
-  </div>
-        `;
-      case 'proof_of_funds':
-        return `
-  <div class="section">
-    <h3 class="section-title">SECTION C: TRAVEL INFORMATION</h3>
-    <div class="form-row">
-      <div class="form-group">
-        <label>International Passport Number</label>
-        <input type="text" />
-      </div>
-      <div class="form-group">
-        <label>Passport Expiry Date</label>
-        <input type="text" placeholder="DD/MM/YYYY" />
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Travel Destination (Country)</label>
-        <input type="text" />
-      </div>
-      <div class="form-group">
-        <label>Purpose of Travel</label>
-        <input type="text" />
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label>Intended Travel Date</label>
-        <input type="text" placeholder="DD/MM/YYYY" />
-      </div>
-      <div class="form-group">
-        <label>Duration of Stay</label>
-        <input type="text" />
-      </div>
-    </div>
-  </div>
-        `;
-      default:
-        return '';
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
       <section className="py-12 md:py-20">
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-2xl">
           <div className="text-center space-y-4 mb-12">
             <h1 className="text-3xl md:text-4xl font-bold text-foreground">
-              Download Application Forms
+              Download Application Form
             </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Download and print the application form for your preferred loan type. 
-              Fill it out and submit it to our office along with the required documents.
+            <p className="text-muted-foreground">
+              Download and print the loan application form. Fill it out and submit it to our office along with the required documents.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {loanTypes.map((loan) => {
-              const Icon = loan.icon;
-              return (
-                <Card key={loan.id} className="shadow-loan-card hover:shadow-loan transition-all">
-                  <CardHeader>
-                    <div className="flex items-center space-x-3">
-                      <div className="p-3 bg-primary/10 rounded-lg">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-lg">{loan.title}</CardTitle>
-                        <CardDescription>{loan.description}</CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <Button 
-                      className="w-full bg-gradient-primary hover:bg-loan-primary-dark text-white"
-                      onClick={() => handleDownload(loan)}
-                    >
-                      <Download className="h-4 w-4 mr-2" />
-                      Download Form
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+          <Card className="shadow-loan-card">
+            <CardHeader className="text-center">
+              <div className="p-4 bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <FileText className="h-8 w-8 text-primary" />
+              </div>
+              <CardTitle className="text-xl">LGCRED Loan Application Form</CardTitle>
+              <p className="text-muted-foreground text-sm mt-2">
+                This unified form covers all loan types: Local Government, SME, Individual, and Proof of Funds
+              </p>
+            </CardHeader>
+            <CardContent className="text-center">
+              <Button 
+                size="lg"
+                className="bg-gradient-primary hover:bg-loan-primary-dark text-white px-8"
+                onClick={handleDownload}
+              >
+                <Download className="h-5 w-5 mr-2" />
+                Download Application Form
+              </Button>
+            </CardContent>
+          </Card>
 
           {/* Instructions */}
-          <Card className="mt-12 shadow-loan-card">
+          <Card className="mt-8 shadow-loan-card">
             <CardHeader>
               <div className="flex items-center space-x-3">
                 <div className="p-3 bg-primary/10 rounded-lg">
@@ -563,7 +532,7 @@ const Apply = () => {
                   </div>
                   <h3 className="font-semibold mb-2">Download Form</h3>
                   <p className="text-sm text-muted-foreground">
-                    Click the download button for your preferred loan type
+                    Click the download button above to get the form
                   </p>
                 </div>
                 <div className="text-center p-4">
@@ -581,7 +550,7 @@ const Apply = () => {
                   </div>
                   <h3 className="font-semibold mb-2">Submit</h3>
                   <p className="text-sm text-muted-foreground">
-                    Submit the form with required documents to our office
+                    Bring your completed form and documents to our office
                   </p>
                 </div>
               </div>
@@ -589,21 +558,24 @@ const Apply = () => {
           </Card>
 
           {/* Contact Info */}
-          <Card className="mt-6 shadow-loan-card bg-gradient-primary text-white">
-            <CardContent className="py-8">
-              <div className="text-center space-y-4">
-                <h3 className="text-xl font-bold">Need Help?</h3>
-                <p className="opacity-90">Contact us for assistance with your application</p>
-                <div className="flex flex-wrap justify-center gap-6 mt-4">
-                  <div className="flex items-center gap-2">
-                    <Phone className="h-5 w-5" />
-                    <span>Contact our office</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-5 w-5" />
-                    <span>info@lgcred.com</span>
-                  </div>
-                </div>
+          <Card className="mt-8 shadow-loan-card">
+            <CardHeader>
+              <CardTitle className="text-center">Need Help?</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col md:flex-row justify-center items-center gap-6 text-sm">
+                <a href="tel:+234XXXXXXXXXX" className="flex items-center gap-2 text-primary hover:underline">
+                  <Phone className="h-4 w-4" />
+                  Contact Us
+                </a>
+                <a href="mailto:info@lgcred.com" className="flex items-center gap-2 text-primary hover:underline">
+                  <Mail className="h-4 w-4" />
+                  info@lgcred.com
+                </a>
+                <span className="flex items-center gap-2 text-muted-foreground">
+                  <MapPin className="h-4 w-4" />
+                  Visit our office
+                </span>
               </div>
             </CardContent>
           </Card>

@@ -1,45 +1,83 @@
+import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, FileText, Phone, Mail, MapPin } from "lucide-react";
+import { Download, FileText, Phone, Mail, MapPin, Loader2 } from "lucide-react";
+import html2pdf from "html2pdf.js";
+import lgcredLogo from "@/assets/lgcred-logo.jpg";
 
 const Apply = () => {
-  const handleDownload = () => {
-    const formContent = generateFormHTML();
-    const newWindow = window.open('', '_blank');
-    if (newWindow) {
-      newWindow.document.write(formContent);
-      newWindow.document.close();
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleDownload = async () => {
+    setIsGenerating(true);
+    
+    try {
+      // Convert logo to base64
+      const logoBase64 = await getBase64FromUrl(lgcredLogo);
+      
+      const formContent = generateFormHTML(logoBase64);
+      
+      // Create a temporary container
+      const container = document.createElement('div');
+      container.innerHTML = formContent;
+      container.style.position = 'absolute';
+      container.style.left = '-9999px';
+      document.body.appendChild(container);
+      
+      const opt = {
+        margin: [10, 10, 10, 10] as [number, number, number, number],
+        filename: 'LGCRED-Loan-Application-Form.pdf',
+        image: { type: 'jpeg' as const, quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const },
+        pagebreak: { mode: ['css', 'legacy'] as const, before: '.page-break' }
+      };
+      
+      await html2pdf().set(opt).from(container).save();
+      
+      // Clean up
+      document.body.removeChild(container);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
-  const generateFormHTML = () => {
+  const getBase64FromUrl = (url: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0);
+          resolve(canvas.toDataURL('image/jpeg'));
+        } else {
+          reject(new Error('Could not get canvas context'));
+        }
+      };
+      img.onerror = reject;
+      img.src = url;
+    });
+  };
+
+  const generateFormHTML = (logoBase64: string) => {
     return `
-<!DOCTYPE html>
-<html>
-<head>
-  <title>LGCRED Nigeria Limited - Consumer Loan Application Form</title>
+<div style="font-family: 'Times New Roman', Times, serif; max-width: 100%; line-height: 1.4; color: #000; font-size: 11px;">
   <style>
-    @media print {
-      body { margin: 0; padding: 15px; }
-      .no-print { display: none !important; }
-      .page { page-break-after: always; }
-      .page:last-child { page-break-after: auto; }
-    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Times New Roman', Times, serif;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      line-height: 1.4;
-      color: #000;
-      font-size: 11px;
-    }
     .page {
-      padding: 20px 0;
-      min-height: 100vh;
+      padding: 15px 20px;
+      min-height: 270mm;
+    }
+    .page-break {
+      page-break-before: always;
     }
     .header {
       display: flex;
@@ -47,15 +85,9 @@ const Apply = () => {
       align-items: flex-start;
       margin-bottom: 15px;
     }
-    .logo-section {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo {
-      font-size: 36px;
-      font-weight: bold;
-      font-style: italic;
+    .logo-img {
+      width: 80px;
+      height: auto;
     }
     .company-info {
       text-align: center;
@@ -70,147 +102,127 @@ const Apply = () => {
     }
     .passport-box {
       border: 1px solid #000;
-      width: 80px;
-      height: 90px;
+      width: 70px;
+      height: 80px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-size: 10px;
+      font-size: 9px;
       text-align: center;
     }
     .form-title {
       text-align: center;
       font-weight: bold;
       font-size: 13px;
-      margin: 15px 0 5px 0;
+      margin: 12px 0 5px 0;
     }
     .section-title {
       font-weight: bold;
       text-align: center;
-      font-size: 11px;
-      margin: 10px 0 8px 0;
+      font-size: 10px;
+      margin: 8px 0 6px 0;
       text-decoration: underline;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     td {
       border: 1px solid #000;
-      padding: 4px 6px;
+      padding: 3px 5px;
       vertical-align: top;
-      font-size: 10px;
+      font-size: 9px;
     }
     td.label {
       background: #f5f5f5;
       font-weight: normal;
-      width: 20%;
-    }
-    td.value {
-      min-height: 20px;
+      width: 18%;
     }
     .underline-field {
       border-bottom: 1px solid #000;
-      min-width: 150px;
+      min-width: 100px;
       display: inline-block;
-      margin: 0 5px;
-    }
-    .signature-section {
-      margin-top: 20px;
+      margin: 0 3px;
     }
     .signature-line {
       border-bottom: 1px solid #000;
-      width: 250px;
+      width: 200px;
       display: inline-block;
-      margin-top: 30px;
+      margin-top: 20px;
     }
     .checkbox {
       display: inline-block;
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       border: 1px solid #000;
       margin-right: 3px;
       vertical-align: middle;
     }
     .page-number {
       text-align: center;
-      margin-top: 20px;
-      font-size: 10px;
+      margin-top: 15px;
+      font-size: 9px;
     }
     .consent-header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .consent-title {
       font-weight: bold;
       text-decoration: underline;
-      font-size: 12px;
-      margin-top: 20px;
+      font-size: 11px;
+      margin-top: 15px;
     }
     .consent-text {
       text-align: justify;
-      margin: 15px 0;
-      font-size: 11px;
-      line-height: 1.6;
+      margin: 12px 0;
+      font-size: 10px;
+      line-height: 1.5;
     }
     .agreement-section {
-      margin: 15px 0;
+      margin: 10px 0;
     }
     .agreement-section h4 {
       font-weight: bold;
-      font-size: 11px;
-      margin-bottom: 8px;
+      font-size: 10px;
+      margin-bottom: 5px;
     }
     .agreement-text {
       text-align: justify;
-      font-size: 11px;
-      line-height: 1.5;
-      margin-bottom: 10px;
+      font-size: 10px;
+      line-height: 1.4;
+      margin-bottom: 8px;
     }
     .guarantor-table td {
-      height: 25px;
+      height: 22px;
     }
     .undertaking {
-      margin-top: 15px;
+      margin-top: 12px;
     }
     .undertaking ol {
-      margin-left: 20px;
-      font-size: 11px;
-      line-height: 1.6;
+      margin-left: 18px;
+      font-size: 10px;
+      line-height: 1.5;
     }
     .version-footer {
       text-align: center;
-      margin-top: 30px;
-      font-size: 10px;
+      margin-top: 25px;
+      font-size: 9px;
     }
-    .print-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #1a5f2a;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 14px;
-      cursor: pointer;
-      border-radius: 5px;
-      z-index: 1000;
-    }
-    .print-btn:hover {
-      background: #145224;
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
   </style>
-</head>
-<body>
-  <button class="print-btn no-print" onclick="window.print()">🖨️ Print Form</button>
 
   <!-- PAGE 1: Consumer Loan Application Form -->
   <div class="page">
     <div class="header">
       <div class="logo-section">
-        <div class="logo">LG</div>
+        <img src="${logoBase64}" class="logo-img" alt="LGCRED Logo" />
       </div>
       <div class="company-info">
         <div class="company-name">LGCRED NIGERIA LIMITED</div>
@@ -372,25 +384,25 @@ const Apply = () => {
       <tr><td>&nbsp;</td><td></td><td></td><td></td></tr>
     </table>
 
-    <div class="signature-section">
-      <p style="margin-bottom: 20px;">
+    <div style="margin-top: 15px;">
+      <p style="margin-bottom: 15px; font-size: 10px;">
         I hereby Authorize <strong>LGcred Services Limited</strong> to verify the information provided on this form as to my credit and employment history.
       </p>
-      <p>
-        <strong>SIGNATURE OF APPLICANT(FOR MANDATE PURPOSES):</strong> <span class="signature-line"></span> &nbsp;&nbsp;&nbsp;&nbsp; <strong>Date:</strong> <span class="underline-field" style="min-width: 100px;"></span>
+      <p style="font-size: 10px;">
+        <strong>SIGNATURE OF APPLICANT(FOR MANDATE PURPOSES):</strong> <span class="signature-line"></span> &nbsp;&nbsp; <strong>Date:</strong> <span class="underline-field" style="min-width: 80px;"></span>
       </p>
-      <p style="margin-top: 20px;"><strong>AUTHORIZATION</strong></p>
-      <p style="margin-top: 10px;">Chairman Local Government/Chief of Staff <span class="signature-line"></span></p>
+      <p style="margin-top: 15px; font-size: 10px;"><strong>AUTHORIZATION</strong></p>
+      <p style="margin-top: 8px; font-size: 10px;">Chairman Local Government/Chief of Staff <span class="signature-line"></span></p>
     </div>
 
     <div class="page-number">1</div>
   </div>
 
   <!-- PAGE 2: Consent/Authorization Form -->
-  <div class="page">
+  <div class="page page-break">
     <div class="consent-header">
-      <div class="logo" style="font-size: 40px;">LG</div>
-      <div style="font-size: 11px;">LGCRED NIGERIA LIMITED</div>
+      <img src="${logoBase64}" style="width: 70px; height: auto;" alt="LGCRED Logo" />
+      <div style="font-size: 10px; margin-top: 5px;">LGCRED NIGERIA LIMITED</div>
     </div>
 
     <div class="consent-title">CONSENT/AUTHORIZATION TO DISCLOSE & OBTAIN INFORMATION</div>
@@ -400,7 +412,7 @@ const Apply = () => {
     </div>
 
     <div class="consent-text">
-      I/We hereby irrevocably and unconditionally grant my/our consent and expressly authorize LGCRED to make such disclosure of any or all information on my/our account(s)/transaction(s) with LGCRED as and when LGCRED may deem necessary, to such credit bureau. I/We hereby grant my/our consent for an applicable credit check fee of N<span class="underline-field" style="min-width: 120px;"></span>(<span class="underline-field" style="min-width: 200px;"></span>) which should be debited from my account with the Lender.
+      I/We hereby irrevocably and unconditionally grant my/our consent and expressly authorize LGCRED to make such disclosure of any or all information on my/our account(s)/transaction(s) with LGCRED as and when LGCRED may deem necessary, to such credit bureau. I/We hereby grant my/our consent for an applicable credit check fee of N<span class="underline-field" style="min-width: 100px;"></span>(<span class="underline-field" style="min-width: 150px;"></span>) which should be debited from my account with the Lender.
     </div>
 
     <div class="consent-text">
@@ -411,23 +423,23 @@ const Apply = () => {
       I/we hereby execute this document as follows:
     </div>
 
-    <div style="margin-top: 30px;">
-      <p><strong>Name:</strong></p>
-      <p style="border-bottom: 1px dotted #000; height: 30px; margin: 10px 0;"></p>
+    <div style="margin-top: 25px;">
+      <p style="font-size: 10px;"><strong>Name:</strong></p>
+      <p style="border-bottom: 1px dotted #000; height: 25px; margin: 8px 0;"></p>
     </div>
 
-    <div style="margin-top: 20px;">
-      <p><strong>Address:</strong></p>
-      <p style="border-bottom: 1px dotted #000; height: 30px; margin: 10px 0;"></p>
-      <p style="border-bottom: 1px dotted #000; height: 30px; margin: 10px 0;"></p>
+    <div style="margin-top: 15px;">
+      <p style="font-size: 10px;"><strong>Address:</strong></p>
+      <p style="border-bottom: 1px dotted #000; height: 25px; margin: 8px 0;"></p>
+      <p style="border-bottom: 1px dotted #000; height: 25px; margin: 8px 0;"></p>
     </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 60px;">
+    <div style="display: flex; justify-content: space-between; margin-top: 50px;">
       <div>
-        <p><strong>Signature:</strong> <span style="border-bottom: 1px dotted #000; display: inline-block; width: 200px;"></span></p>
+        <p style="font-size: 10px;"><strong>Signature:</strong> <span style="border-bottom: 1px dotted #000; display: inline-block; width: 180px;"></span></p>
       </div>
       <div>
-        <p><strong>Date:</strong> <span style="border-bottom: 1px dotted #000; display: inline-block; width: 150px;"></span></p>
+        <p style="font-size: 10px;"><strong>Date:</strong> <span style="border-bottom: 1px dotted #000; display: inline-block; width: 130px;"></span></p>
       </div>
     </div>
 
@@ -437,16 +449,16 @@ const Apply = () => {
   </div>
 
   <!-- PAGE 3: Loan Agreement Form (Part 1) -->
-  <div class="page">
-    <div class="logo-section" style="margin-bottom: 10px;">
-      <div class="logo" style="font-size: 36px;">LG</div>
-      <div style="font-size: 10px;">LGCRED NIGERIA LIMITED</div>
+  <div class="page page-break">
+    <div class="logo-section" style="margin-bottom: 8px;">
+      <img src="${logoBase64}" style="width: 60px; height: auto;" alt="LGCRED Logo" />
+      <div style="font-size: 9px; margin-left: 8px;">LGCRED NIGERIA LIMITED</div>
     </div>
 
     <div class="form-title">LOAN AGREEMENT FORM</div>
 
-    <div class="agreement-text" style="margin-top: 20px;">
-      This AGREEMENT is executed as of this<span class="underline-field" style="min-width: 40px;"></span>day of<span class="underline-field" style="min-width: 80px;"></span>,20<span class="underline-field" style="min-width: 30px;"></span>,
+    <div class="agreement-text" style="margin-top: 15px;">
+      This AGREEMENT is executed as of this<span class="underline-field" style="min-width: 35px;"></span>day of<span class="underline-field" style="min-width: 70px;"></span>,20<span class="underline-field" style="min-width: 25px;"></span>,
     </div>
 
     <div class="agreement-text">by and between</div>
@@ -458,25 +470,25 @@ const Apply = () => {
     <div class="agreement-text">and</div>
 
     <div class="agreement-text">
-      The Client, <span class="underline-field" style="min-width: 200px;"></span> (Client's Full Name), located at <span class="underline-field" style="min-width: 200px;"></span>
+      The Client, <span class="underline-field" style="min-width: 180px;"></span> (Client's Full Name), located at <span class="underline-field" style="min-width: 180px;"></span>
       (Client's Complete Address).
     </div>
 
-    <div class="agreement-text" style="margin-top: 15px;">
+    <div class="agreement-text" style="margin-top: 12px;">
       <strong>IN CONSIDERATION THEREOF</strong>, the undersigned Parties agree as follows:
     </div>
 
     <div class="agreement-section">
       <h4>I. LOAN AMOUNT</h4>
       <div class="agreement-text">
-        The Company agrees to loan Client the principal sum of N<span class="underline-field" style="min-width: 150px;"></span> in accordance with the terms and conditions set forth in this Loan Agreement below.
+        The Company agrees to loan Client the principal sum of N<span class="underline-field" style="min-width: 130px;"></span> in accordance with the terms and conditions set forth in this Loan Agreement below.
       </div>
     </div>
 
     <div class="agreement-section">
       <h4>II. INTEREST</h4>
       <div class="agreement-text">
-        The Client agrees to repay the Loan Amount at an interest rate of <span class="underline-field" style="min-width: 50px;"></span>% every month.
+        The Client agrees to repay the Loan Amount at an interest rate of <span class="underline-field" style="min-width: 40px;"></span>% every month.
       </div>
       <div class="agreement-text">
         (Total interest charged shall not exceed the maximum amount allowed by law and the Client shall not be obligated to pay any interest in excess of such amount).
@@ -488,9 +500,9 @@ const Apply = () => {
       <div class="agreement-text">
         The Client agrees to repay the Loan to the Company under the following payment schedule: (check one)
       </div>
-      <div class="agreement-text" style="margin-left: 20px;">
-        <p><span class="checkbox"></span> <strong>Monthly Payments</strong>: The Client agrees to repay the Company a sum of N<span class="underline-field" style="min-width: 100px;"></span> on the <span class="underline-field" style="min-width: 50px;"></span> of each month until the Due Date.</p>
-        <p style="margin-top: 10px;"><span class="checkbox"></span> <strong>Lump Sum</strong>: The Client agrees to repay the Company, in full, on the Due Date.</p>
+      <div class="agreement-text" style="margin-left: 15px;">
+        <p><span class="checkbox"></span> <strong>Monthly Payments</strong>: The Client agrees to repay the Company a sum of N<span class="underline-field" style="min-width: 80px;"></span> on the <span class="underline-field" style="min-width: 40px;"></span> of each month until the Due Date.</p>
+        <p style="margin-top: 8px;"><span class="checkbox"></span> <strong>Lump Sum</strong>: The Client agrees to repay the Company, in full, on the Due Date.</p>
       </div>
     </div>
 
@@ -503,10 +515,10 @@ const Apply = () => {
   </div>
 
   <!-- PAGE 4: Loan Agreement Form (Part 2) -->
-  <div class="page">
-    <div class="logo-section" style="margin-bottom: 20px;">
-      <div class="logo" style="font-size: 36px;">LG</div>
-      <div style="font-size: 10px;">LGCRED NIGERIA LIMITED</div>
+  <div class="page page-break">
+    <div class="logo-section" style="margin-bottom: 15px;">
+      <img src="${logoBase64}" style="width: 60px; height: auto;" alt="LGCRED Logo" />
+      <div style="font-size: 9px; margin-left: 8px;">LGCRED NIGERIA LIMITED</div>
     </div>
 
     <div class="agreement-section">
@@ -528,37 +540,37 @@ const Apply = () => {
 
     <div class="agreement-section">
       <div class="agreement-text">
-        <strong>VII. TERM:</strong> The total amount of the Borrowed Money, including principal, interest and any accrued charges shall be due and payable on <span class="underline-field" style="min-width: 100px;"></span>, 20<span class="underline-field" style="min-width: 30px;"></span>.
+        <strong>VII. TERM:</strong> The total amount of the Borrowed Money, including principal, interest and any accrued charges shall be due and payable on <span class="underline-field" style="min-width: 90px;"></span>, 20<span class="underline-field" style="min-width: 25px;"></span>.
       </div>
     </div>
 
-    <div style="margin-top: 50px;">
-      <p><strong>The Client:</strong></p>
-      <p style="margin-top: 15px;">Name: <span style="border-bottom: 1px solid #000; display: inline-block; width: 300px;"></span></p>
-      <p style="margin-top: 20px;">Signature: <span style="border-bottom: 1px solid #000; display: inline-block; width: 280px;"></span></p>
-      <p style="margin-top: 20px;">Date: <span style="border-bottom: 1px solid #000; display: inline-block; width: 300px;"></span></p>
+    <div style="margin-top: 40px;">
+      <p style="font-size: 10px;"><strong>The Client:</strong></p>
+      <p style="margin-top: 12px; font-size: 10px;">Name: <span style="border-bottom: 1px solid #000; display: inline-block; width: 280px;"></span></p>
+      <p style="margin-top: 15px; font-size: 10px;">Signature: <span style="border-bottom: 1px solid #000; display: inline-block; width: 260px;"></span></p>
+      <p style="margin-top: 15px; font-size: 10px;">Date: <span style="border-bottom: 1px solid #000; display: inline-block; width: 280px;"></span></p>
     </div>
 
-    <div style="margin-top: 40px;">
-      <p><strong>The Company; LGCRED NIGERIA LIMITED:</strong></p>
-      <p style="margin-top: 15px;">Name: <span style="border-bottom: 1px solid #000; display: inline-block; width: 300px;"></span></p>
-      <p style="margin-top: 20px;">Title: <span style="border-bottom: 1px solid #000; display: inline-block; width: 300px;"></span></p>
-      <p style="margin-top: 20px;">Signature: <span style="border-bottom: 1px solid #000; display: inline-block; width: 280px;"></span></p>
-      <p style="margin-top: 20px;">Date: <span style="border-bottom: 1px solid #000; display: inline-block; width: 300px;"></span></p>
+    <div style="margin-top: 35px;">
+      <p style="font-size: 10px;"><strong>The Company; LGCRED NIGERIA LIMITED:</strong></p>
+      <p style="margin-top: 12px; font-size: 10px;">Name: <span style="border-bottom: 1px solid #000; display: inline-block; width: 280px;"></span></p>
+      <p style="margin-top: 15px; font-size: 10px;">Title: <span style="border-bottom: 1px solid #000; display: inline-block; width: 280px;"></span></p>
+      <p style="margin-top: 15px; font-size: 10px;">Signature: <span style="border-bottom: 1px solid #000; display: inline-block; width: 260px;"></span></p>
+      <p style="margin-top: 15px; font-size: 10px;">Date: <span style="border-bottom: 1px solid #000; display: inline-block; width: 280px;"></span></p>
     </div>
   </div>
 
   <!-- PAGE 5: Loan Guarantor Form -->
-  <div class="page">
-    <div class="logo-section" style="margin-bottom: 10px;">
-      <div class="logo" style="font-size: 36px;">LG</div>
-      <div style="font-size: 10px;">LGCRED NIGERIA LIMITED</div>
+  <div class="page page-break">
+    <div class="logo-section" style="margin-bottom: 8px;">
+      <img src="${logoBase64}" style="width: 60px; height: auto;" alt="LGCRED Logo" />
+      <div style="font-size: 9px; margin-left: 8px;">LGCRED NIGERIA LIMITED</div>
     </div>
 
     <div class="form-title">LOAN GUARANTOR FORM</div>
-    <div style="text-align: center; font-size: 10px; margin-bottom: 15px;">LGCRED Nigeria Limited</div>
+    <div style="text-align: center; font-size: 9px; margin-bottom: 12px;">LGCRED Nigeria Limited</div>
 
-    <p style="font-weight: bold; margin-bottom: 10px;">Loan Applicant's Details</p>
+    <p style="font-weight: bold; margin-bottom: 8px; font-size: 10px;">Loan Applicant's Details</p>
 
     <table class="guarantor-table">
       <tr>
@@ -588,7 +600,7 @@ const Apply = () => {
       </tr>
     </table>
 
-    <p style="font-weight: bold; margin: 15px 0 10px 0;">Guarantor's Details</p>
+    <p style="font-weight: bold; margin: 12px 0 8px 0; font-size: 10px;">Guarantor's Details</p>
 
     <table class="guarantor-table">
       <tr>
@@ -650,25 +662,23 @@ const Apply = () => {
     </table>
 
     <div class="undertaking">
-      <p style="font-weight: bold; text-decoration: underline; margin-bottom: 10px;">Undertaking</p>
+      <p style="font-weight: bold; text-decoration: underline; margin-bottom: 8px; font-size: 10px;">Undertaking</p>
       <ol>
         <li>I hereby confirm that I stand as a Guarantor in respect of the loan application of the above named person.</li>
-        <li style="margin-top: 10px;">As a Guarantor, I shall take reasonable measures to ensure that the Client repays the loan in accordance with the terms of offer and to cooperate with <strong>LGCred Nigeria Limited</strong> in collecting any installment due for repayment together with any interest and penalties accrued under the terms of the loan Agreement.</li>
+        <li style="margin-top: 8px;">As a Guarantor, I shall take reasonable measures to ensure that the Client repays the loan in accordance with the terms of offer and to cooperate with <strong>LGCred Nigeria Limited</strong> in collecting any installment due for repayment together with any interest and penalties accrued under the terms of the loan Agreement.</li>
       </ol>
     </div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 50px;">
+    <div style="display: flex; justify-content: space-between; margin-top: 40px;">
       <div>
-        <p style="border-top: 1px solid #000; padding-top: 5px; width: 250px;"><em>Guarantor's Signature & Date</em></p>
+        <p style="border-top: 1px solid #000; padding-top: 5px; width: 220px; font-size: 10px;"><em>Guarantor's Signature & Date</em></p>
       </div>
       <div>
-        <p style="border-top: 1px solid #000; padding-top: 5px; width: 200px; text-align: center;">Managing Director</p>
+        <p style="border-top: 1px solid #000; padding-top: 5px; width: 180px; text-align: center; font-size: 10px;">Managing Director</p>
       </div>
     </div>
   </div>
-
-</body>
-</html>
+</div>
     `;
   };
 
@@ -702,9 +712,19 @@ const Apply = () => {
                 size="lg"
                 className="bg-gradient-primary hover:bg-loan-primary-dark text-white px-8"
                 onClick={handleDownload}
+                disabled={isGenerating}
               >
-                <Download className="h-5 w-5 mr-2" />
-                Download Application Form
+                {isGenerating ? (
+                  <>
+                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                    Generating PDF...
+                  </>
+                ) : (
+                  <>
+                    <Download className="h-5 w-5 mr-2" />
+                    Download Application Form (PDF)
+                  </>
+                )}
               </Button>
             </CardContent>
           </Card>
@@ -727,7 +747,7 @@ const Apply = () => {
                   </div>
                   <h3 className="font-semibold mb-2">Download Form</h3>
                   <p className="text-sm text-muted-foreground">
-                    Click the download button above to get the form
+                    Click the download button above to get the PDF form
                   </p>
                 </div>
                 <div className="text-center p-4">
@@ -763,9 +783,9 @@ const Apply = () => {
                   <Phone className="h-4 w-4" />
                   Contact Us
                 </a>
-                <a href="mailto:info@lgcred.com" className="flex items-center gap-2 text-primary hover:underline">
+                <a href="mailto:support@lgcrednigltd.com" className="flex items-center gap-2 text-primary hover:underline">
                   <Mail className="h-4 w-4" />
-                  info@lgcred.com
+                  support@lgcrednigltd.com
                 </a>
                 <span className="flex items-center gap-2 text-muted-foreground">
                   <MapPin className="h-4 w-4" />

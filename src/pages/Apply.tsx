@@ -22,15 +22,40 @@ const Apply = () => {
       // Create a temporary container
       const container = document.createElement('div');
       container.innerHTML = formContent;
-      container.style.position = 'absolute';
-      container.style.left = '-9999px';
+      container.style.width = '210mm';
+      container.style.background = 'white';
       document.body.appendChild(container);
+      
+      // Wait for images to load
+      const images = container.querySelectorAll('img');
+      await Promise.all(
+        Array.from(images).map(
+          (img) =>
+            new Promise<void>((resolve) => {
+              if (img.complete) {
+                resolve();
+              } else {
+                img.onload = () => resolve();
+                img.onerror = () => resolve();
+              }
+            })
+        )
+      );
+      
+      // Small delay to ensure rendering
+      await new Promise(resolve => setTimeout(resolve, 100));
       
       const opt = {
         margin: [10, 10, 10, 10] as [number, number, number, number],
         filename: 'LGCRED-Loan-Application-Form.pdf',
         image: { type: 'jpeg' as const, quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
+        html2canvas: { 
+          scale: 2, 
+          useCORS: true,
+          logging: false,
+          allowTaint: true,
+          backgroundColor: '#ffffff'
+        },
         jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const },
         pagebreak: { mode: ['css', 'legacy'] as const, before: '.page-break' }
       };

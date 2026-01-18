@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, Building2, Briefcase, User, FileCheck, Calculator, Phone } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "@/assets/lgcred-logo.jpg";
 import {
@@ -15,7 +15,6 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
 
   // Track scroll for header shadow
   useEffect(() => {
@@ -38,13 +37,14 @@ const Header = () => {
     };
   }, [isMenuOpen]);
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToFooter = () => {
+    const isHomePage = location.pathname === '/';
     if (isHomePage) {
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' });
     } else {
       navigate('/');
       setTimeout(() => {
-        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' });
       }, 400);
     }
     setIsMenuOpen(false);
@@ -95,7 +95,7 @@ const Header = () => {
 
             {/* Calculator */}
             <button
-              onClick={() => scrollToSection('calculator')}
+              onClick={() => navigate('/calculator')}
               className="flex items-center gap-2 text-header-foreground hover:text-header-accent transition-colors px-4 py-2 rounded-lg hover:bg-white/5"
             >
               <Calculator className="h-4 w-4" />
@@ -112,7 +112,7 @@ const Header = () => {
 
             {/* Contact */}
             <button
-              onClick={() => scrollToSection('footer')}
+              onClick={scrollToFooter}
               className="flex items-center gap-2 text-header-foreground hover:text-header-accent transition-colors px-4 py-2 rounded-lg hover:bg-white/5"
             >
               <Phone className="h-4 w-4" />
@@ -196,9 +196,9 @@ const Header = () => {
             {/* Other Links */}
             <div className="flex flex-col items-center space-y-3">
               {[
-                { label: "Calculator", action: () => scrollToSection('calculator') },
+                { label: "Calculator", action: () => navigate('/calculator') },
                 { label: "About Us", action: () => navigate('/about') },
-                { label: "Contact", action: () => scrollToSection('footer') },
+                { label: "Contact", action: scrollToFooter },
               ].map((item, index) => (
                 <div
                   key={item.label}

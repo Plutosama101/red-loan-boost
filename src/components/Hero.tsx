@@ -58,7 +58,7 @@ const Hero = () => {
                 variant="outline" 
                 size="lg"
                 className="text-lg py-7 px-8 rounded-xl border-2"
-                onClick={() => document.getElementById('calculator')?.scrollIntoView({behavior: 'smooth'})}
+                onClick={() => navigate('/calculator')}
               >
                 Calculate Loan
               </Button>

@@ -11,13 +11,16 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 const SMELoan = () => {
   const navigate = useNavigate();
-  const [amount, setAmount] = useState([1000000]);
+  const [amount, setAmount] = useState([2000000]);
   const [term, setTerm] = useState([12]);
-  const rate = 18; // SME loans typically have slightly higher rates
+  const rate = 7; // 7% total interest rate for SME loans
 
-  const monthlyPayment = (amount[0] * (rate / 100 / 12)) / (1 - Math.pow(1 + (rate / 100 / 12), -term[0]));
-  const totalAmount = monthlyPayment * term[0];
-  const totalInterest = totalAmount - amount[0];
+  const totalInterest = amount[0] * (rate / 100);
+  const totalAmount = amount[0] + totalInterest;
+  const monthlyPayment = totalAmount / term[0];
+  const managementFee = amount[0] * 0.02; // 2% management fee
+  const creditScoreCharge = 5000; // ₦5,000 credit score charge
+  const disbursementAmount = amount[0] - managementFee;
 
   const requirements = [
     {
@@ -97,14 +100,14 @@ const SMELoan = () => {
                     <Slider
                       value={amount}
                       onValueChange={setAmount}
-                      max={10000000}
-                      min={200000}
-                      step={100000}
+                      max={12000000}
+                      min={500000}
+                      step={500000}
                       className="w-full"
                     />
                     <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>₦200,000</span>
-                      <span>₦10,000,000</span>
+                      <span>₦500,000</span>
+                      <span>₦12,000,000</span>
                     </div>
                   </div>
 
@@ -120,28 +123,28 @@ const SMELoan = () => {
                     <Slider
                       value={term}
                       onValueChange={setTerm}
-                      max={24}
+                      max={12}
                       min={3}
                       step={1}
                       className="w-full"
                     />
                     <div className="flex justify-between text-sm text-muted-foreground">
                       <span>3 months</span>
-                      <span>24 months</span>
+                      <span>12 months</span>
                     </div>
                   </div>
 
                   {/* Interest Rate */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <Label className="text-base font-medium">Interest Rate</Label>
+                      <Label className="text-base font-medium">Total Interest Rate</Label>
                       <div className="flex items-center space-x-1 text-primary font-bold">
                         <Percent className="h-4 w-4" />
-                        <span>{rate}% APR</span>
+                        <span>{rate}% Total Interest</span>
                       </div>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      Competitive rate for SME business loans
+                      Competitive flat rate for SME business loans
                     </p>
                   </div>
                 </CardContent>
@@ -192,6 +195,20 @@ const SMELoan = () => {
                     </div>
 
                     <div className="flex justify-between items-center p-3 bg-loan-gray rounded-lg">
+                      <p className="text-xs text-muted-foreground">Management Fee (2%)</p>
+                      <p className="text-sm font-bold text-foreground">
+                        ₦{managementFee.toLocaleString('en-NG', { maximumFractionDigits: 0 })}
+                      </p>
+                    </div>
+
+                    <div className="flex justify-between items-center p-3 bg-loan-gray rounded-lg">
+                      <p className="text-xs text-muted-foreground">You'll Receive</p>
+                      <p className="text-sm font-bold text-primary">
+                        ₦{disbursementAmount.toLocaleString('en-NG', { maximumFractionDigits: 0 })}
+                      </p>
+                    </div>
+
+                    <div className="flex justify-between items-center p-3 bg-loan-gray rounded-lg">
                       <p className="text-xs text-muted-foreground">Total Repayment</p>
                       <p className="text-sm font-bold text-foreground">
                         ₦{totalAmount.toLocaleString('en-NG', { maximumFractionDigits: 0 })}
@@ -199,7 +216,7 @@ const SMELoan = () => {
                     </div>
 
                     <div className="flex justify-between items-center p-3 bg-loan-gray rounded-lg">
-                      <p className="text-xs text-muted-foreground">Total Interest</p>
+                      <p className="text-xs text-muted-foreground">Total Interest ({rate}%)</p>
                       <p className="text-sm font-bold text-foreground">
                         ₦{totalInterest.toLocaleString('en-NG', { maximumFractionDigits: 0 })}
                       </p>
@@ -220,8 +237,8 @@ const SMELoan = () => {
                     </p>
                     <ul className="space-y-1 text-sm">
                       <li>• Flexible repayment options</li>
-                      <li>• Fast approval process</li>
-                      <li>• Dedicated business support</li>
+                      <li>• ₦5,000 credit score charge</li>
+                      <li>• Less than 24 hours approval</li>
                     </ul>
                     <Button 
                       variant="secondary" 

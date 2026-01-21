@@ -85,8 +85,8 @@ const About = () => {
                 </div>
                 <h3 className="text-xl font-bold text-foreground">Fast Approval</h3>
                 <p className="text-sm text-muted-foreground">
-                  Get instant loan approval in as little as 5 minutes with our streamlined 
-                  digital process. No long waits, no paperwork hassles.
+                  Get loan approval in less than 24 hours with our streamlined 
+                  process. Funds disbursed within 48 hours of approval.
                 </p>
               </CardContent>
             </Card>

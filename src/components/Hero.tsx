@@ -21,10 +21,10 @@ const Hero = () => {
             {/* Main Headline */}
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] tracking-tight">
-                Get Up To <span className="text-primary">₦5 Million</span> In 5 Minutes
+                Get Up To <span className="text-primary">₦12 Million</span> In Less Than 24 Hours
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-lg">
-                Access instant loans with competitive rates, no hidden fees, and flexible repayment plans tailored to your needs.
+                Access loans with competitive rates, no hidden fees, and flexible repayment plans tailored to your needs.
               </p>
             </div>
 
@@ -32,11 +32,11 @@ const Hero = () => {
             <div className="flex flex-wrap gap-3">
               <div className="flex items-center gap-2 bg-muted px-4 py-2 rounded-full">
                 <CheckCircle className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium">No Collateral Required</span>
+                <span className="text-sm font-medium">Collateral Required (Depending on Amount)</span>
               </div>
               <div className="flex items-center gap-2 bg-muted px-4 py-2 rounded-full">
                 <Clock className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium">Instant Approval</span>
+                <span className="text-sm font-medium">Less Than 24 Hours Approval</span>
               </div>
               <div className="flex items-center gap-2 bg-muted px-4 py-2 rounded-full">
                 <Shield className="h-4 w-4 text-primary" />
@@ -72,17 +72,17 @@ const Hero = () => {
               <div className="bg-card rounded-2xl shadow-xl p-6 md:p-8 space-y-6 border">
                 <div className="text-center space-y-2">
                   <p className="text-muted-foreground text-sm uppercase tracking-wider">Available Credit Up To</p>
-                  <p className="text-4xl md:text-5xl font-bold text-primary">₦5,000,000</p>
+                  <p className="text-4xl md:text-5xl font-bold text-primary">₦12,000,000</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-muted rounded-xl p-4 text-center">
-                    <p className="text-2xl font-bold text-foreground">5 mins</p>
+                    <p className="text-2xl font-bold text-foreground">&lt;24 hrs</p>
                     <p className="text-sm text-muted-foreground">Approval Time</p>
                   </div>
                   <div className="bg-muted rounded-xl p-4 text-center">
-                    <p className="text-2xl font-bold text-foreground">3.5%</p>
-                    <p className="text-sm text-muted-foreground">Monthly Rate</p>
+                    <p className="text-2xl font-bold text-foreground">5-7%</p>
+                    <p className="text-sm text-muted-foreground">Interest Rate</p>
                   </div>
                 </div>
 
@@ -123,7 +123,7 @@ const Hero = () => {
               <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-2">
                 <Clock className="h-6 w-6 text-primary" />
               </div>
-              <p className="text-3xl md:text-4xl font-bold text-foreground">5 mins</p>
+              <p className="text-3xl md:text-4xl font-bold text-foreground">&lt;24 hrs</p>
               <p className="text-sm text-muted-foreground">Avg. Approval Time</p>
             </div>
             <div className="text-center space-y-2">

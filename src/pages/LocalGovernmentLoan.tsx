@@ -6,19 +6,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, DollarSign, Calendar, Percent, ChevronLeft, CheckCircle2 } from "lucide-react";
+import { Calculator, Calendar, Percent, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const LocalGovernmentLoan = () => {
   const navigate = useNavigate();
   const [amount, setAmount] = useState([500000]);
-  const [term, setTerm] = useState([12]);
-  const rate = 15; // Fixed rate for LG loans
+  const [term, setTerm] = useState([6]);
+  const rate = 5; // 5% interest rate for LG loans
 
   const monthlyPayment = (amount[0] * (rate / 100 / 12)) / (1 - Math.pow(1 + (rate / 100 / 12), -term[0]));
   const totalAmount = monthlyPayment * term[0];
   const totalInterest = totalAmount - amount[0];
-  const managementFee = amount[0] * 0.01;
+  const managementFee = amount[0] * 0.02; // 2% management fee
+  const creditScoreCharge = 5000; // ₦5,000 credit score charge
   const disbursementAmount = amount[0] - managementFee;
 
   const requirements = [
@@ -91,14 +92,14 @@ const LocalGovernmentLoan = () => {
                     <Slider
                       value={amount}
                       onValueChange={setAmount}
-                      max={5000000}
+                      max={1000000}
                       min={100000}
                       step={50000}
                       className="w-full"
                     />
                     <div className="flex justify-between text-sm text-muted-foreground">
                       <span>₦100,000</span>
-                      <span>₦5,000,000</span>
+                      <span>₦1,000,000</span>
                     </div>
                   </div>
 
@@ -114,14 +115,14 @@ const LocalGovernmentLoan = () => {
                     <Slider
                       value={term}
                       onValueChange={setTerm}
-                      max={12}
+                      max={6}
                       min={3}
                       step={1}
                       className="w-full"
                     />
                     <div className="flex justify-between text-sm text-muted-foreground">
                       <span>3 months</span>
-                      <span>12 months</span>
+                      <span>6 months</span>
                     </div>
                   </div>
 
@@ -131,7 +132,7 @@ const LocalGovernmentLoan = () => {
                       <Label className="text-base font-medium">Interest Rate</Label>
                       <div className="flex items-center space-x-1 text-primary font-bold">
                         <Percent className="h-4 w-4" />
-                        <span>{rate}% APR</span>
+                        <span>{rate}% Interest</span>
                       </div>
                     </div>
                     <p className="text-sm text-muted-foreground">
@@ -186,7 +187,7 @@ const LocalGovernmentLoan = () => {
                     </div>
 
                     <div className="flex justify-between items-center p-3 bg-loan-gray rounded-lg">
-                      <p className="text-xs text-muted-foreground">Management Fee (1%)</p>
+                      <p className="text-xs text-muted-foreground">Management Fee (2%)</p>
                       <p className="text-sm font-bold text-foreground">
                         ₦{managementFee.toLocaleString('en-NG', { maximumFractionDigits: 0 })}
                       </p>
@@ -217,11 +218,11 @@ const LocalGovernmentLoan = () => {
                   <div className="bg-gradient-primary text-white rounded-lg p-4 space-y-3">
                     <h3 className="font-bold">Ready to Apply?</h3>
                     <p className="text-sm opacity-90">
-                      Get instant approval and funds in your account within 24 hours
+                      Get approval in less than 24 hours and funds in your account within 48 hours
                     </p>
                     <ul className="space-y-1 text-sm">
                       <li>• Direct debit repayment</li>
-                      <li>• 1% Remita charge per debit</li>
+                      <li>• ₦5,000 credit score charge</li>
                       <li>• Fast approval process</li>
                     </ul>
                     <Button 

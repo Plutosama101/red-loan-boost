@@ -8,27 +8,27 @@ const FAQ = () => {
   const faqs = [
     {
       question: "Who is eligible for a loan?",
-      answer: "Confirmed Local Government staff in Nigeria with verifiable income and valid documentation. No existing LGCRED loans required.",
+      answer: "Confirmed Local Government staff in Nigeria with verifiable income and valid documentation. SME loans available for registered businesses with CAC certificate. Collateral may be required depending on loan amount.",
       icon: UserCheck,
     },
     {
       question: "What loan amounts are available?",
-      answer: "Up to ₦500,000 for LG employees (12 months). ₦100,000 - ₦2,000,000 for SMEs based on assessment.",
+      answer: "Up to ₦1,000,000 for LG employees (maximum 6 months term). Up to ₦12,000,000 for SMEs (maximum 12 months term). Individual loans available based on assessment.",
       icon: BadgeDollarSign,
     },
     {
       question: "How long does approval take?",
-      answer: "3-5 business days for review. Funds disbursed within 48 hours of approval to your account.",
+      answer: "Less than 24 hours for review. Funds disbursed within 48 hours of approval to your account.",
       icon: Clock,
     },
     {
       question: "What are the interest rates?",
-      answer: "LG loans: 15% p.a. + 1% fee. SME loans: 18% p.a. Calculated on reducing balance basis.",
+      answer: "LG loans: 5% interest + 2% management fee. SME loans: 7% total interest + 2% management fee. All rates calculated on reducing balance basis.",
       icon: Percent,
     },
     {
       question: "How do I repay my loan?",
-      answer: "Automated monthly salary deductions or account transfers. Early repayment welcome without penalty.",
+      answer: "Automated monthly salary deductions or account transfers. ₦5,000 credit score charge applies. Early repayment welcome without penalty.",
       icon: CreditCard,
     },
   ];

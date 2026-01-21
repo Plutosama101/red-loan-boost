@@ -134,7 +134,7 @@ const LoanCalculator = () => {
               <div className="bg-gradient-primary text-white rounded-lg p-4 space-y-3">
                 <h3 className="font-bold">Ready to Apply?</h3>
                 <p className="text-sm opacity-90">
-                  Get instant approval and funds in your account within 24 hours
+                  Get approval in less than 24 hours and funds in your account within 48 hours
                 </p>
                 <ul className="space-y-1 text-sm">
                   <li>• No hidden fees</li>

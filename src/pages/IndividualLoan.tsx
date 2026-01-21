@@ -12,11 +12,13 @@ const IndividualLoan = () => {
   const navigate = useNavigate();
   const [amount, setAmount] = useState(500000);
   const [term, setTerm] = useState(6);
-  const rate = 5; // 5% monthly interest rate
+  const rate = 5; // 5% interest rate
 
-  const monthlyPayment = (amount * (1 + (rate / 100) * term)) / term;
-  const totalAmount = monthlyPayment * term;
-  const totalInterest = totalAmount - amount;
+  const totalInterest = amount * (rate / 100);
+  const totalAmount = amount + totalInterest;
+  const monthlyPayment = totalAmount / term;
+  const managementFee = amount * 0.02; // 2% management fee
+  const disbursementAmount = amount - managementFee;
 
   const requirements = [
     {
@@ -120,7 +122,7 @@ const IndividualLoan = () => {
                   <div className="p-4 bg-loan-gray rounded-lg">
                     <div className="flex justify-between items-center">
                       <span className="text-sm font-medium text-foreground">Interest Rate</span>
-                      <span className="text-xl font-bold text-primary">{rate}% / month</span>
+                      <span className="text-xl font-bold text-primary">{rate}% Total</span>
                     </div>
                   </div>
                 </CardContent>
@@ -169,6 +171,14 @@ const IndividualLoan = () => {
                       <span className="font-bold text-foreground">₦{amount.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between items-center py-3 border-b">
+                      <span className="text-muted-foreground">Management Fee (2%)</span>
+                      <span className="font-bold text-foreground">₦{Math.round(managementFee).toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b">
+                      <span className="text-muted-foreground">You'll Receive</span>
+                      <span className="font-bold text-primary">₦{Math.round(disbursementAmount).toLocaleString()}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 border-b">
                       <span className="text-muted-foreground">Monthly Payment</span>
                       <span className="font-bold text-primary text-xl">₦{Math.round(monthlyPayment).toLocaleString()}</span>
                     </div>
@@ -177,7 +187,7 @@ const IndividualLoan = () => {
                       <span className="font-bold text-foreground">₦{Math.round(totalAmount).toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between items-center py-3">
-                      <span className="text-muted-foreground">Total Interest</span>
+                      <span className="text-muted-foreground">Total Interest ({rate}%)</span>
                       <span className="font-bold text-foreground">₦{Math.round(totalInterest).toLocaleString()}</span>
                     </div>
                   </div>
@@ -190,7 +200,7 @@ const IndividualLoan = () => {
                   </Button>
 
                   <p className="text-xs text-center text-muted-foreground">
-                    By applying, you agree to our terms and conditions
+                    ₦5,000 credit score charge applies. Approval in less than 24 hours.
                   </p>
                 </CardContent>
               </Card>

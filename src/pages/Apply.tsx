@@ -534,7 +534,7 @@ const Apply = () => {
     <div class="agreement-section">
       <h4>IV. MANAGEMENT FEE</h4>
       <div class="agreement-text">
-        Client agrees an acceptance clause of 1% management fee, a one-off charge, which will be deducted before disbursement.
+        Client agrees an acceptance clause of 2% management fee, a one-off charge, which will be deducted before disbursement.
       </div>
     </div>
   </div>
@@ -547,9 +547,9 @@ const Apply = () => {
     </div>
 
     <div class="agreement-section">
-      <h4>V. DIRECT DEBIT CHARGE</h4>
+      <h4>V. CREDIT SCORE CHARGE</h4>
       <div class="agreement-text">
-        An acceptance clause of 1% charge for each month debit from the client's account by Remita (or our preferred direct debit vendor).
+        A one-time credit score check fee of ₦5,000 (Five Thousand Naira) will be charged to verify client's creditworthiness.
       </div>
       <div class="agreement-text">
         (Client must duly notify the company before or during a change of salary account while servicing loan and as well update their account information with us as soon as possible to avoid delay in repayment. Otherwise, the company would assume the worst and take necessary actions).

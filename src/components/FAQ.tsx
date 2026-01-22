@@ -8,12 +8,12 @@ const FAQ = () => {
   const faqs = [
     {
       question: "Who is eligible for a loan?",
-      answer: "Confirmed Local Government staff in Nigeria with verifiable income and valid documentation. SME loans available for registered businesses with CAC certificate. Collateral may be required depending on loan amount.",
+      answer: "We offer loans to various groups including Local Government employees, SME business owners with CAC registration, and salaried individuals. Each loan type has specific requirements. Collateral may be required depending on loan amount.",
       icon: UserCheck,
     },
     {
       question: "What loan amounts are available?",
-      answer: "Up to ₦1,000,000 for LG employees (maximum 6 months term). Up to ₦12,000,000 for SMEs (maximum 12 months term). Individual loans available based on assessment.",
+      answer: "LG employees: Up to ₦1,000,000 (max 6 months). SME businesses: Up to ₦12,000,000 (max 12 months). Individual loans: Up to ₦5,000,000 based on assessment.",
       icon: BadgeDollarSign,
     },
     {

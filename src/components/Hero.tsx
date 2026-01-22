@@ -20,8 +20,8 @@ const Hero = () => {
 
             {/* Main Headline */}
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] tracking-tight">
-                Get Up To <span className="text-primary">₦12 Million</span> In Less Than 24 Hours
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] tracking-tight">
+                Get Up To <span className="text-primary">₦500,000</span> In Less Than 24 Hours
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-lg">
                 Access loans with competitive rates, no hidden fees, and flexible repayment plans tailored to your needs.
@@ -72,7 +72,7 @@ const Hero = () => {
               <div className="bg-card rounded-2xl shadow-xl p-6 md:p-8 space-y-6 border">
                 <div className="text-center space-y-2">
                   <p className="text-muted-foreground text-sm uppercase tracking-wider">Available Credit Up To</p>
-                  <p className="text-4xl md:text-5xl font-bold text-primary">₦12,000,000</p>
+                  <p className="text-4xl md:text-5xl font-bold text-primary">₦500,000</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">

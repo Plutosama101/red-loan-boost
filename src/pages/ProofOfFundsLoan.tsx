@@ -10,11 +10,11 @@ import { ArrowLeft, Calculator, FileText, CheckCircle } from "lucide-react";
 
 const ProofOfFundsLoan = () => {
   const navigate = useNavigate();
-  const [amount, setAmount] = useState(5000000);
-  const [term, setTerm] = useState(1);
+  const [amount, setAmount] = useState([5000000]);
+  const [term, setTerm] = useState([1]);
   const serviceFeeRate = 3; // 3% service fee
 
-  const serviceFee = amount * (serviceFeeRate / 100);
+  const serviceFee = amount[0] * (serviceFeeRate / 100);
   const totalCost = serviceFee;
 
   const requirements = [
@@ -79,11 +79,11 @@ const ProofOfFundsLoan = () => {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <label className="text-sm font-medium text-foreground">Amount to Display</label>
-                      <span className="text-2xl font-bold text-primary">₦{amount.toLocaleString()}</span>
+                      <span className="text-2xl font-bold text-primary">₦{amount[0].toLocaleString()}</span>
                     </div>
                     <Slider
-                      value={[amount]}
-                      onValueChange={(value) => setAmount(value[0])}
+                      value={amount}
+                      onValueChange={setAmount}
                       min={1000000}
                       max={50000000}
                       step={500000}
@@ -99,11 +99,11 @@ const ProofOfFundsLoan = () => {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <label className="text-sm font-medium text-foreground">Display Duration</label>
-                      <span className="text-2xl font-bold text-primary">{term} week{term > 1 ? 's' : ''}</span>
+                      <span className="text-2xl font-bold text-primary">{term[0]} week{term[0] > 1 ? 's' : ''}</span>
                     </div>
                     <Slider
-                      value={[term]}
-                      onValueChange={(value) => setTerm(value[0])}
+                      value={term}
+                      onValueChange={setTerm}
                       min={1}
                       max={4}
                       step={1}
@@ -174,11 +174,11 @@ const ProofOfFundsLoan = () => {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center py-3 border-b">
                       <span className="text-muted-foreground">Display Amount</span>
-                      <span className="font-bold text-foreground">₦{amount.toLocaleString()}</span>
+                      <span className="font-bold text-foreground">₦{amount[0].toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between items-center py-3 border-b">
                       <span className="text-muted-foreground">Duration</span>
-                      <span className="font-bold text-foreground">{term} week{term > 1 ? 's' : ''}</span>
+                      <span className="font-bold text-foreground">{term[0]} week{term[0] > 1 ? 's' : ''}</span>
                     </div>
                     <div className="flex justify-between items-center py-3 border-b">
                       <span className="text-muted-foreground">Service Fee ({serviceFeeRate}%)</span>

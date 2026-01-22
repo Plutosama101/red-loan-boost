@@ -68,6 +68,14 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
+            {/* Home */}
+            <button
+              onClick={() => navigate('/')}
+              className="text-header-foreground hover:text-header-accent transition-colors px-4 py-2 rounded-lg hover:bg-white/5 text-sm font-medium"
+            >
+              Home
+            </button>
+
             {/* Products Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -196,6 +204,7 @@ const Header = () => {
             {/* Other Links */}
             <div className="flex flex-col items-center space-y-3">
               {[
+                { label: "Home", action: () => navigate('/') },
                 { label: "Calculator", action: () => navigate('/calculator') },
                 { label: "About Us", action: () => navigate('/about') },
                 { label: "Contact", action: scrollToFooter },
@@ -237,7 +246,7 @@ const Header = () => {
               </Button>
               <Button
                 variant="outline"
-                className="border-header-foreground/30 text-header-foreground hover:bg-header-foreground/10 text-sm px-8 py-5 rounded-xl"
+                className="border-primary text-primary-foreground bg-primary/20 hover:bg-primary/30 text-sm px-8 py-5 rounded-xl"
                 onClick={() => { 
                   window.open('https://wa.me/2348130222496', '_blank');
                   setIsMenuOpen(false); 

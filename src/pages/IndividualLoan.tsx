@@ -10,15 +10,15 @@ import { ArrowLeft, Calculator, FileText, CheckCircle } from "lucide-react";
 
 const IndividualLoan = () => {
   const navigate = useNavigate();
-  const [amount, setAmount] = useState(500000);
-  const [term, setTerm] = useState(6);
+  const [amount, setAmount] = useState([500000]);
+  const [term, setTerm] = useState([6]);
   const rate = 5; // 5% interest rate
 
-  const totalInterest = amount * (rate / 100);
-  const totalAmount = amount + totalInterest;
-  const monthlyPayment = totalAmount / term;
-  const managementFee = amount * 0.02; // 2% management fee
-  const disbursementAmount = amount - managementFee;
+  const totalInterest = amount[0] * (rate / 100);
+  const totalAmount = amount[0] + totalInterest;
+  const monthlyPayment = totalAmount / term[0];
+  const managementFee = amount[0] * 0.02; // 2% management fee
+  const disbursementAmount = amount[0] - managementFee;
 
   const requirements = [
     {
@@ -82,11 +82,11 @@ const IndividualLoan = () => {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <label className="text-sm font-medium text-foreground">Loan Amount</label>
-                      <span className="text-2xl font-bold text-primary">₦{amount.toLocaleString()}</span>
+                      <span className="text-2xl font-bold text-primary">₦{amount[0].toLocaleString()}</span>
                     </div>
                     <Slider
-                      value={[amount]}
-                      onValueChange={(value) => setAmount(value[0])}
+                      value={amount}
+                      onValueChange={setAmount}
                       min={100000}
                       max={5000000}
                       step={50000}
@@ -102,11 +102,11 @@ const IndividualLoan = () => {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <label className="text-sm font-medium text-foreground">Loan Term</label>
-                      <span className="text-2xl font-bold text-primary">{term} months</span>
+                      <span className="text-2xl font-bold text-primary">{term[0]} months</span>
                     </div>
                     <Slider
-                      value={[term]}
-                      onValueChange={(value) => setTerm(value[0])}
+                      value={term}
+                      onValueChange={setTerm}
                       min={3}
                       max={12}
                       step={1}
@@ -168,7 +168,7 @@ const IndividualLoan = () => {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center py-3 border-b">
                       <span className="text-muted-foreground">Principal Amount</span>
-                      <span className="font-bold text-foreground">₦{amount.toLocaleString()}</span>
+                      <span className="font-bold text-foreground">₦{amount[0].toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between items-center py-3 border-b">
                       <span className="text-muted-foreground">Management Fee (2%)</span>

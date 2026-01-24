@@ -6,9 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Calendar, Percent, ArrowRight, CheckCircle, Building2, Briefcase, User } from "lucide-react";
+import { Calculator, Calendar, Percent, ArrowRight, CheckCircle, Building2, Briefcase, User, FileCheck } from "lucide-react";
 
-type LoanType = "lg" | "sme" | "individual";
+type LoanType = "lg" | "sme" | "individual" | "pof";
 
 const loanConfig = {
   lg: {
@@ -41,8 +41,19 @@ const loanConfig = {
     stepAmount: 50000,
     maxTerm: 12,
     minTerm: 3,
-    rate: 5,
-    rateLabel: "5% Interest",
+    rate: 10,
+    rateLabel: "10% Interest",
+  },
+  pof: {
+    name: "Proof of Funds",
+    icon: FileCheck,
+    maxAmount: 50000000,
+    minAmount: 1000000,
+    stepAmount: 500000,
+    maxTerm: 4,
+    minTerm: 1,
+    rate: 3,
+    rateLabel: "3% Service Fee",
   },
 };
 
@@ -53,18 +64,35 @@ const CalculatorPage = () => {
   const [term, setTerm] = useState([6]);
 
   const config = loanConfig[loanType];
+  const isProofOfFunds = loanType === "pof";
 
   // Adjust amount and term when loan type changes
   const handleLoanTypeChange = (type: LoanType) => {
     setLoanType(type);
     const newConfig = loanConfig[type];
-    // Reset to sensible defaults for the new loan type
-    setAmount([Math.min(amount[0], newConfig.maxAmount)]);
-    setTerm([Math.min(term[0], newConfig.maxTerm)]);
+
+    // Keep values within the new loan type's allowed range.
+    // (Important: switching from e.g. LG -> SME could otherwise leave amount below SME min.)
+    const nextAmount = Math.min(
+      Math.max(amount[0], newConfig.minAmount),
+      newConfig.maxAmount
+    );
+    const nextTerm = Math.min(
+      Math.max(term[0], newConfig.minTerm),
+      newConfig.maxTerm
+    );
+
+    setAmount([nextAmount]);
+    setTerm([nextTerm]);
   };
 
   // Calculate based on loan type
   const calculatePayment = () => {
+    if (loanType === "pof") {
+      const serviceFee = amount[0] * (config.rate / 100);
+      return { monthlyPayment: serviceFee, totalAmount: serviceFee, totalInterest: 0 };
+    }
+
     if (loanType === "sme") {
       // SME uses flat rate calculation
       const totalInterest = amount[0] * (config.rate / 100);
@@ -82,8 +110,8 @@ const CalculatorPage = () => {
   };
 
   const { monthlyPayment, totalAmount, totalInterest } = calculatePayment();
-  const managementFee = amount[0] * 0.02;
-  const disbursementAmount = amount[0] - managementFee;
+  const managementFee = isProofOfFunds ? 0 : amount[0] * 0.02;
+  const disbursementAmount = isProofOfFunds ? 0 : amount[0] - managementFee;
 
   return (
     <div className="min-h-screen bg-background">
@@ -105,7 +133,7 @@ const CalculatorPage = () => {
           </div>
 
           {/* Loan Type Selection */}
-          <div className="grid grid-cols-3 gap-3 md:gap-4 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
             {(Object.keys(loanConfig) as LoanType[]).map((type) => {
               const Icon = loanConfig[type].icon;
               const isActive = loanType === type;
@@ -134,7 +162,11 @@ const CalculatorPage = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calculator className="h-5 w-5 text-primary" />
-                  <span>Calculate Your {config.name} Loan</span>
+                  <span>
+                    {isProofOfFunds
+                      ? `Calculate ${config.name} Service`
+                      : `Calculate Your ${config.name} Loan`}
+                  </span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-8">
@@ -160,13 +192,17 @@ const CalculatorPage = () => {
                   </div>
                 </div>
 
-                {/* Loan Term */}
+                {/* Loan Term / Duration */}
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <Label className="text-base font-medium">Loan Term</Label>
+                    <Label className="text-base font-medium">
+                      {isProofOfFunds ? "Display Duration" : "Loan Term"}
+                    </Label>
                     <div className="flex items-center gap-2 text-primary font-bold text-xl">
                       <Calendar className="h-5 w-5" />
-                      <span>{term[0]} months</span>
+                      <span>
+                        {term[0]} {isProofOfFunds ? `week${term[0] > 1 ? "s" : ""}` : "months"}
+                      </span>
                     </div>
                   </div>
                   <Slider
@@ -178,22 +214,32 @@ const CalculatorPage = () => {
                     className="w-full"
                   />
                   <div className="flex justify-between text-sm text-muted-foreground">
-                    <span>{config.minTerm} months</span>
-                    <span>{config.maxTerm} months</span>
+                    <span>
+                      {config.minTerm} {isProofOfFunds ? "week" : "months"}
+                    </span>
+                    <span>
+                      {config.maxTerm} {isProofOfFunds ? "weeks" : "months"}
+                    </span>
                   </div>
                 </div>
 
-                {/* Interest Rate */}
+                {/* Interest Rate / Service Fee */}
                 <div className="p-4 bg-muted rounded-xl">
                   <div className="flex items-center justify-between">
-                    <Label className="text-base font-medium">Interest Rate</Label>
+                    <Label className="text-base font-medium">
+                      {isProofOfFunds ? "Service Fee" : "Interest Rate"}
+                    </Label>
                     <div className="flex items-center gap-2 text-primary font-bold">
                       <Percent className="h-4 w-4" />
                       <span>{config.rateLabel}</span>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
-                    {loanType === "sme" ? "Flat rate for business loans" : "Competitive rate on reducing balance"}
+                    {isProofOfFunds
+                      ? "Fee charged for temporarily displaying funds in your bank account"
+                      : loanType === "sme"
+                        ? "Flat rate for business loans"
+                        : "Competitive rate on reducing balance"}
                   </p>
                 </div>
               </CardContent>
@@ -203,33 +249,60 @@ const CalculatorPage = () => {
             <Card className="shadow-lg border-2">
               <CardContent className="pt-8 space-y-6">
                 <div className="text-center space-y-2 p-6 bg-primary/5 rounded-2xl">
-                  <p className="text-sm text-muted-foreground uppercase tracking-wider">Monthly Payment</p>
+                  <p className="text-sm text-muted-foreground uppercase tracking-wider">
+                    {isProofOfFunds ? "Service Fee" : "Monthly Payment"}
+                  </p>
                   <p className="text-4xl md:text-5xl font-bold text-primary">
                     ₦{Math.round(monthlyPayment).toLocaleString()}
                   </p>
                 </div>
                 
                 <div className="space-y-3">
-                  <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                    <span className="text-sm text-muted-foreground">Loan Amount</span>
-                    <span className="font-bold text-foreground">₦{amount[0].toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                    <span className="text-sm text-muted-foreground">Management Fee (2%)</span>
-                    <span className="font-bold text-foreground">₦{Math.round(managementFee).toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                    <span className="text-sm text-muted-foreground">You'll Receive</span>
-                    <span className="font-bold text-primary">₦{Math.round(disbursementAmount).toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                    <span className="text-sm text-muted-foreground">Total Repayment</span>
-                    <span className="font-bold text-foreground">₦{Math.round(totalAmount).toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                    <span className="text-sm text-muted-foreground">Total Interest</span>
-                    <span className="font-bold text-foreground">₦{Math.round(totalInterest).toLocaleString()}</span>
-                  </div>
+                  {isProofOfFunds ? (
+                    <>
+                      <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                        <span className="text-sm text-muted-foreground">Amount to Display</span>
+                        <span className="font-bold text-foreground">₦{amount[0].toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                        <span className="text-sm text-muted-foreground">Duration</span>
+                        <span className="font-bold text-foreground">
+                          {term[0]} week{term[0] > 1 ? "s" : ""}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                        <span className="text-sm text-muted-foreground">Service Fee ({config.rate}%)</span>
+                        <span className="font-bold text-primary">₦{Math.round(monthlyPayment).toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                        <span className="text-sm text-muted-foreground">Total Cost</span>
+                        <span className="font-bold text-foreground">₦{Math.round(totalAmount).toLocaleString()}</span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                        <span className="text-sm text-muted-foreground">Loan Amount</span>
+                        <span className="font-bold text-foreground">₦{amount[0].toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                        <span className="text-sm text-muted-foreground">Management Fee (2%)</span>
+                        <span className="font-bold text-foreground">₦{Math.round(managementFee).toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                        <span className="text-sm text-muted-foreground">You'll Receive</span>
+                        <span className="font-bold text-primary">₦{Math.round(disbursementAmount).toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                        <span className="text-sm text-muted-foreground">Total Repayment</span>
+                        <span className="font-bold text-foreground">₦{Math.round(totalAmount).toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                        <span className="text-sm text-muted-foreground">Total Interest</span>
+                        <span className="font-bold text-foreground">₦{Math.round(totalInterest).toLocaleString()}</span>
+                      </div>
+                    </>
+                  )}
                 </div>
                 
                 <div className="bg-primary text-primary-foreground rounded-2xl p-6 space-y-4">
@@ -252,7 +325,9 @@ const CalculatorPage = () => {
                     <Button 
                       variant="secondary" 
                       className="flex-1"
-                      onClick={() => navigate('/loans')}
+                      onClick={() =>
+                        navigate(isProofOfFunds ? "/loans/proof-of-funds" : "/loans")
+                      }
                     >
                       View Requirements
                     </Button>

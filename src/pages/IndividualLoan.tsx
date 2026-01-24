@@ -12,7 +12,7 @@ const IndividualLoan = () => {
   const navigate = useNavigate();
   const [amount, setAmount] = useState([500000]);
   const [term, setTerm] = useState([6]);
-  const rate = 5; // 5% interest rate
+  const rate = 10; // 10% interest rate
 
   const totalInterest = amount[0] * (rate / 100);
   const totalAmount = amount[0] + totalInterest;

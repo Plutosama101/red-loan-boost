@@ -26,10 +26,10 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/loans" element={<LoanSelection />} />
-          <Route path="/local-government-loan" element={<LocalGovernmentLoan />} />
-          <Route path="/sme-loan" element={<SMELoan />} />
-          <Route path="/individual-loan" element={<IndividualLoan />} />
-          <Route path="/proof-of-funds-loan" element={<ProofOfFundsLoan />} />
+          <Route path="/loans/local-government" element={<LocalGovernmentLoan />} />
+          <Route path="/loans/sme" element={<SMELoan />} />
+          <Route path="/loans/individual" element={<IndividualLoan />} />
+          <Route path="/loans/proof-of-funds" element={<ProofOfFundsLoan />} />
           <Route path="/apply" element={<Apply />} />
           <Route path="/calculator" element={<Calculator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

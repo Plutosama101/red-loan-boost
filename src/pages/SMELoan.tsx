@@ -6,20 +6,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Calendar, Percent, ChevronLeft, CheckCircle2 } from "lucide-react";
+import { Calculator, Calendar, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const SMELoan = () => {
   const navigate = useNavigate();
   const [amount, setAmount] = useState([2000000]);
   const [term, setTerm] = useState([12]);
-  const rate = 7; // 7% total interest rate for SME loans
+  const rate = 7; // 7% per month
 
-  const totalInterest = amount[0] * (rate / 100);
-  const totalAmount = amount[0] + totalInterest;
-  const monthlyPayment = totalAmount / term[0];
+  // Monthly amortized formula with rate as monthly
+  const monthlyRate = rate / 100;
+  const n = term[0];
+  const monthlyPayment = (amount[0] * monthlyRate * Math.pow(1 + monthlyRate, n)) / (Math.pow(1 + monthlyRate, n) - 1);
+  const totalAmount = monthlyPayment * n;
+  const totalInterest = totalAmount - amount[0];
   const managementFee = amount[0] * 0.02; // 2% management fee
-  const creditScoreCharge = 5000; // ₦5,000 credit score charge
   const disbursementAmount = amount[0] - managementFee;
 
   const requirements = [
@@ -135,16 +137,13 @@ const SMELoan = () => {
                   </div>
 
                   {/* Interest Rate */}
-                  <div className="space-y-2">
+                  <div className="p-4 bg-muted rounded-lg">
                     <div className="flex items-center justify-between">
-                      <Label className="text-base font-medium">Total Interest Rate</Label>
-                      <div className="flex items-center space-x-1 text-primary font-bold">
-                        <Percent className="h-4 w-4" />
-                        <span>{rate}% Total Interest</span>
-                      </div>
+                      <Label className="text-base font-medium">Monthly Interest Rate</Label>
+                      <span className="text-primary font-bold text-lg">{rate}% monthly</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">
-                      Competitive flat rate for SME business loans
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Interest is calculated monthly on reducing balance
                     </p>
                   </div>
                 </CardContent>
@@ -216,7 +215,7 @@ const SMELoan = () => {
                     </div>
 
                     <div className="flex justify-between items-center p-3 bg-loan-gray rounded-lg">
-                      <p className="text-xs text-muted-foreground">Total Interest ({rate}%)</p>
+                      <p className="text-xs text-muted-foreground">Total Interest</p>
                       <p className="text-sm font-bold text-foreground">
                         ₦{totalInterest.toLocaleString('en-NG', { maximumFractionDigits: 0 })}
                       </p>

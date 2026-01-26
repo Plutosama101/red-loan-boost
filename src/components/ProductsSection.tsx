@@ -1,4 +1,4 @@
-import { ArrowRight, Building2, Briefcase, User, FileCheck } from "lucide-react";
+import { ArrowRight, Building2, Briefcase, User, FileCheck, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import localGovImg from "@/assets/local-government-loan.jpg";
 import smeImg from "@/assets/sme-loan.jpg";
@@ -11,35 +11,67 @@ const ProductsSection = () => {
   const products = [
     {
       title: "Local Government Loans",
-      description: "Exclusive loan products for local government employees with competitive rates and flexible terms.",
+      summary: "For local government employees seeking short-term funding with competitive monthly interest rates.",
       icon: Building2,
       image: localGovImg,
-      path: "/local-government-loan",
-      highlight: "Up to ₦3M",
+      path: "/loans/local-government",
+      highlight: "Up to ₦1M",
+      features: [
+        "Up to ₦1,000,000",
+        "5% monthly interest",
+        "Max 6 months tenure",
+        "Letter from LG Chairman",
+        "Salary account required",
+        "Guarantor needed"
+      ]
     },
     {
       title: "SME Business Loans",
-      description: "Take your business to the next level with our SME financing solutions.",
+      summary: "Grow your small or medium enterprise with capital for expansion, inventory, or operations.",
       icon: Briefcase,
       image: smeImg,
-      path: "/sme-loan",
-      highlight: "Up to ₦5M",
+      path: "/loans/sme",
+      highlight: "Up to ₦12M",
+      features: [
+        "Up to ₦12,000,000",
+        "7% monthly interest",
+        "Max 12 months tenure",
+        "CAC certificate required",
+        "Business account (1 yr statement)",
+        "Business guarantor"
+      ]
     },
     {
       title: "Individual Loans",
-      description: "Personal loans for life's important moments - weddings, education, emergencies.",
+      summary: "Personal loans for salaried employees and individuals for weddings, education, emergencies, and more.",
       icon: User,
       image: individualImg,
-      path: "/individual-loan",
+      path: "/loans/individual",
       highlight: "Quick Approval",
+      features: [
+        "Up to ₦5,000,000",
+        "10% monthly interest",
+        "Max 12 months tenure",
+        "Valid ID required",
+        "6 months bank statement",
+        "Guarantor needed"
+      ]
     },
     {
       title: "Proof of Funds",
-      description: "Legitimate proof of funds for visa applications and travel documentation.",
+      summary: "Legitimate proof of funds displayed in your account for visa applications, travel, or business verification.",
       icon: FileCheck,
       image: proofOfFundsImg,
-      path: "/proof-of-funds-loan",
+      path: "/loans/proof-of-funds",
       highlight: "Same Day",
+      features: [
+        "Up to ₦50,000,000",
+        "3% service fee",
+        "Up to 4 weeks display",
+        "Valid passport required",
+        "Travel itinerary/invitation",
+        "Quick processing"
+      ]
     },
   ];
 
@@ -58,12 +90,11 @@ const ProductsSection = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product, index) => (
+        <div className="grid md:grid-cols-2 gap-8">
+          {products.map((product) => (
             <div
               key={product.path}
-              className="group bg-card rounded-2xl overflow-hidden border shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer"
-              onClick={() => navigate(product.path)}
+              className="group bg-card rounded-2xl overflow-hidden border shadow-sm hover:shadow-xl transition-all duration-300"
             >
               {/* Image */}
               <div className="relative h-44 overflow-hidden">
@@ -79,18 +110,32 @@ const ProductsSection = () => {
               </div>
 
               {/* Content */}
-              <div className="p-5">
+              <div className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="p-2 bg-primary/10 rounded-lg">
                     <product.icon className="h-5 w-5 text-primary" />
                   </div>
-                  <h3 className="font-bold text-foreground">{product.title}</h3>
+                  <h3 className="font-bold text-lg text-foreground">{product.title}</h3>
                 </div>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                  {product.description}
+                <p className="text-sm text-muted-foreground mb-4">
+                  {product.summary}
                 </p>
-                <button className="flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all">
-                  Learn More
+
+                {/* Key Features */}
+                <div className="grid grid-cols-2 gap-2 mb-5">
+                  {product.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                      <CheckCircle className="h-3.5 w-3.5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => navigate(product.path)}
+                  className="flex items-center gap-2 text-primary font-medium text-sm group-hover:gap-3 transition-all"
+                >
+                  Calculate & Apply
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </div>

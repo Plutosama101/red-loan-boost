@@ -12,11 +12,14 @@ const IndividualLoan = () => {
   const navigate = useNavigate();
   const [amount, setAmount] = useState([500000]);
   const [term, setTerm] = useState([6]);
-  const rate = 10; // 10% interest rate
+  const rate = 10; // 10% per month
 
-  const totalInterest = amount[0] * (rate / 100);
-  const totalAmount = amount[0] + totalInterest;
-  const monthlyPayment = totalAmount / term[0];
+  // Monthly amortized formula with rate as monthly
+  const monthlyRate = rate / 100;
+  const n = term[0];
+  const monthlyPayment = (amount[0] * monthlyRate * Math.pow(1 + monthlyRate, n)) / (Math.pow(1 + monthlyRate, n) - 1);
+  const totalAmount = monthlyPayment * n;
+  const totalInterest = totalAmount - amount[0];
   const managementFee = amount[0] * 0.02; // 2% management fee
   const disbursementAmount = amount[0] - managementFee;
 
@@ -121,9 +124,12 @@ const IndividualLoan = () => {
                   {/* Interest Rate */}
                   <div className="p-4 bg-loan-gray rounded-lg">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium text-foreground">Interest Rate</span>
-                      <span className="text-xl font-bold text-primary">{rate}% Total</span>
+                      <span className="text-sm font-medium text-foreground">Monthly Interest Rate</span>
+                      <span className="text-xl font-bold text-primary">{rate}% monthly</span>
                     </div>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Interest is calculated monthly on reducing balance
+                    </p>
                   </div>
                 </CardContent>
               </Card>
@@ -187,7 +193,7 @@ const IndividualLoan = () => {
                       <span className="font-bold text-foreground">₦{Math.round(totalAmount).toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between items-center py-3">
-                      <span className="text-muted-foreground">Total Interest ({rate}%)</span>
+                      <span className="text-muted-foreground">Total Interest</span>
                       <span className="font-bold text-foreground">₦{Math.round(totalInterest).toLocaleString()}</span>
                     </div>
                   </div>

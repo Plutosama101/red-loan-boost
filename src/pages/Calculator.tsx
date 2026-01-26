@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Calendar, Percent, ArrowRight, CheckCircle, Building2, Briefcase, User, FileCheck } from "lucide-react";
+import { Calculator, Calendar, ArrowRight, CheckCircle, Building2, Briefcase, User, FileCheck } from "lucide-react";
 
 type LoanType = "lg" | "sme" | "individual" | "pof";
 
@@ -19,8 +19,8 @@ const loanConfig = {
     stepAmount: 50000,
     maxTerm: 6,
     minTerm: 3,
-    rate: 5,
-    rateLabel: "5% Interest",
+    rate: 5, // 5% per month
+    rateLabel: "5% monthly",
   },
   sme: {
     name: "SME Business",
@@ -30,8 +30,8 @@ const loanConfig = {
     stepAmount: 500000,
     maxTerm: 12,
     minTerm: 3,
-    rate: 7,
-    rateLabel: "7% Total Interest",
+    rate: 7, // 7% per month
+    rateLabel: "7% monthly",
   },
   individual: {
     name: "Individual",
@@ -41,8 +41,8 @@ const loanConfig = {
     stepAmount: 50000,
     maxTerm: 12,
     minTerm: 3,
-    rate: 10,
-    rateLabel: "10% Interest",
+    rate: 10, // 10% per month
+    rateLabel: "10% monthly",
   },
   pof: {
     name: "Proof of Funds",
@@ -52,7 +52,7 @@ const loanConfig = {
     stepAmount: 500000,
     maxTerm: 4,
     minTerm: 1,
-    rate: 3,
+    rate: 3, // 3% service fee
     rateLabel: "3% Service Fee",
   },
 };
@@ -72,7 +72,6 @@ const CalculatorPage = () => {
     const newConfig = loanConfig[type];
 
     // Keep values within the new loan type's allowed range.
-    // (Important: switching from e.g. LG -> SME could otherwise leave amount below SME min.)
     const nextAmount = Math.min(
       Math.max(amount[0], newConfig.minAmount),
       newConfig.maxAmount
@@ -89,24 +88,18 @@ const CalculatorPage = () => {
   // Calculate based on loan type
   const calculatePayment = () => {
     if (loanType === "pof") {
+      // Proof of Funds: flat service fee (rate % of amount)
       const serviceFee = amount[0] * (config.rate / 100);
       return { monthlyPayment: serviceFee, totalAmount: serviceFee, totalInterest: 0 };
     }
 
-    if (loanType === "sme") {
-      // SME uses flat rate calculation
-      const totalInterest = amount[0] * (config.rate / 100);
-      const totalAmount = amount[0] + totalInterest;
-      const monthlyPayment = totalAmount / term[0];
-      return { monthlyPayment, totalAmount, totalInterest };
-    } else {
-      // LG and Individual use reducing balance
-      const monthlyRate = config.rate / 100 / 12;
-      const monthlyPayment = (amount[0] * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -term[0]));
-      const totalAmount = monthlyPayment * term[0];
-      const totalInterest = totalAmount - amount[0];
-      return { monthlyPayment, totalAmount, totalInterest };
-    }
+    // LG / SME / Individual: all use monthly amortized formula with rate as monthly interest
+    const monthlyRate = config.rate / 100; // rate is already per month
+    const n = term[0];
+    const monthlyPayment = (amount[0] * monthlyRate * Math.pow(1 + monthlyRate, n)) / (Math.pow(1 + monthlyRate, n) - 1);
+    const totalAmount = monthlyPayment * n;
+    const totalInterest = totalAmount - amount[0];
+    return { monthlyPayment, totalAmount, totalInterest };
   };
 
   const { monthlyPayment, totalAmount, totalInterest } = calculatePayment();
@@ -227,19 +220,14 @@ const CalculatorPage = () => {
                 <div className="p-4 bg-muted rounded-xl">
                   <div className="flex items-center justify-between">
                     <Label className="text-base font-medium">
-                      {isProofOfFunds ? "Service Fee" : "Interest Rate"}
+                      {isProofOfFunds ? "Service Fee" : "Monthly Interest Rate"}
                     </Label>
-                    <div className="flex items-center gap-2 text-primary font-bold">
-                      <Percent className="h-4 w-4" />
-                      <span>{config.rateLabel}</span>
-                    </div>
+                    <span className="text-primary font-bold text-lg">{config.rateLabel}</span>
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">
                     {isProofOfFunds
                       ? "Fee charged for temporarily displaying funds in your bank account"
-                      : loanType === "sme"
-                        ? "Flat rate for business loans"
-                        : "Competitive rate on reducing balance"}
+                      : "Interest is calculated monthly on reducing balance"}
                   </p>
                 </div>
               </CardContent>
@@ -271,7 +259,7 @@ const CalculatorPage = () => {
                         </span>
                       </div>
                       <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
-                        <span className="text-sm text-muted-foreground">Service Fee ({config.rate}%)</span>
+                        <span className="text-sm text-muted-foreground">Service Fee (3%)</span>
                         <span className="font-bold text-primary">₦{Math.round(monthlyPayment).toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between items-center p-3 bg-muted rounded-lg">

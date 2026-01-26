@@ -6,20 +6,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Calendar, Percent, ChevronLeft, CheckCircle2 } from "lucide-react";
+import { Calculator, Calendar, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const LocalGovernmentLoan = () => {
   const navigate = useNavigate();
   const [amount, setAmount] = useState([500000]);
   const [term, setTerm] = useState([6]);
-  const rate = 5; // 5% interest rate for LG loans
+  const rate = 5; // 5% per month
 
-  const monthlyPayment = (amount[0] * (rate / 100 / 12)) / (1 - Math.pow(1 + (rate / 100 / 12), -term[0]));
-  const totalAmount = monthlyPayment * term[0];
+  // Monthly amortized formula with rate as monthly
+  const monthlyRate = rate / 100;
+  const n = term[0];
+  const monthlyPayment = (amount[0] * monthlyRate * Math.pow(1 + monthlyRate, n)) / (Math.pow(1 + monthlyRate, n) - 1);
+  const totalAmount = monthlyPayment * n;
   const totalInterest = totalAmount - amount[0];
   const managementFee = amount[0] * 0.02; // 2% management fee
-  const creditScoreCharge = 5000; // ₦5,000 credit score charge
   const disbursementAmount = amount[0] - managementFee;
 
   const requirements = [
@@ -127,16 +129,13 @@ const LocalGovernmentLoan = () => {
                   </div>
 
                   {/* Interest Rate */}
-                  <div className="space-y-2">
+                  <div className="p-4 bg-muted rounded-lg">
                     <div className="flex items-center justify-between">
-                      <Label className="text-base font-medium">Interest Rate</Label>
-                      <div className="flex items-center space-x-1 text-primary font-bold">
-                        <Percent className="h-4 w-4" />
-                        <span>{rate}% Interest</span>
-                      </div>
+                      <Label className="text-base font-medium">Monthly Interest Rate</Label>
+                      <span className="text-primary font-bold text-lg">{rate}% monthly</span>
                     </div>
-                    <p className="text-sm text-muted-foreground">
-                      Competitive rate for local government employees
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Interest is calculated monthly on reducing balance
                     </p>
                   </div>
                 </CardContent>

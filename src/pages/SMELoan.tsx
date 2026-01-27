@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Calculator, Calendar, ChevronLeft, CheckCircle2 } from "lucide-react";
+import { Calculator, Calendar, ChevronLeft, CheckCircle2, Briefcase, Clock, Percent, Banknote } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const SMELoan = () => {
@@ -70,13 +70,54 @@ const SMELoan = () => {
             Back to Loan Selection
           </Button>
 
-          <div className="text-center space-y-3 mb-8">
-            <h1 className="text-2xl md:text-4xl font-bold text-foreground">
-              SME Loan Calculator
-            </h1>
-            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-              Calculate your monthly payments for Small and Medium Enterprise loans
-            </p>
+          {/* Summary Section */}
+          <div className="mb-10">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-primary/10 rounded-xl">
+                <Briefcase className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-foreground">SME Business Loan</h1>
+                <p className="text-muted-foreground">For small and medium enterprises</p>
+              </div>
+            </div>
+            
+            <div className="bg-muted/50 rounded-xl p-6 border">
+              <p className="text-foreground mb-4">
+                Grow your business with our SME loan designed for registered businesses in Nigeria. Whether you need capital for expansion, inventory, equipment, or operational costs, we provide the funding you need with flexible repayment terms. Your business must be CAC registered with at least 1 year of operation.
+              </p>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="flex items-center gap-2">
+                  <Banknote className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Max Amount</p>
+                    <p className="font-bold text-foreground">₦12,000,000</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Percent className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Interest Rate</p>
+                    <p className="font-bold text-foreground">7% monthly</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Max Tenure</p>
+                    <p className="font-bold text-foreground">12 months</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Approval</p>
+                    <p className="font-bold text-foreground">&lt;24 hours</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-6">

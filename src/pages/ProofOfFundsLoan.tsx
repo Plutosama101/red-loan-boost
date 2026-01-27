@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ArrowLeft, Calculator, FileText, CheckCircle } from "lucide-react";
+import { ArrowLeft, Calculator, FileText, CheckCircle, FileCheck, Clock, Percent, Banknote, Calendar } from "lucide-react";
 
 const ProofOfFundsLoan = () => {
   const navigate = useNavigate();
@@ -58,6 +58,56 @@ const ProofOfFundsLoan = () => {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Loan Types
           </Button>
+
+          {/* Summary Section */}
+          <div className="mb-10">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-primary/10 rounded-xl">
+                <FileCheck className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-foreground">Proof of Funds</h1>
+                <p className="text-muted-foreground">For visa applications and business verification</p>
+              </div>
+            </div>
+            
+            <div className="bg-muted/50 rounded-xl p-6 border">
+              <p className="text-foreground mb-4">
+                Need to show proof of financial capability for a visa application, travel, or business verification? Our Proof of Funds service temporarily displays the requested amount in your bank account for the specified duration. This is a legitimate service ideal for visa applications, business deals, or any situation requiring proof of financial capability.
+              </p>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="flex items-center gap-2">
+                  <Banknote className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Max Amount</p>
+                    <p className="font-bold text-foreground">₦50,000,000</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Percent className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Service Fee</p>
+                    <p className="font-bold text-foreground">3%</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Max Duration</p>
+                    <p className="font-bold text-foreground">4 weeks</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Processing</p>
+                    <p className="font-bold text-foreground">Same Day</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
             {/* Calculator Section */}

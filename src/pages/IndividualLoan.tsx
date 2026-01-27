@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ArrowLeft, Calculator, FileText, CheckCircle } from "lucide-react";
+import { ArrowLeft, Calculator, FileText, CheckCircle, User, Clock, Percent, Banknote, Calendar } from "lucide-react";
 
 const IndividualLoan = () => {
   const navigate = useNavigate();
@@ -64,6 +64,56 @@ const IndividualLoan = () => {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Loan Types
           </Button>
+
+          {/* Summary Section */}
+          <div className="mb-10">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-primary/10 rounded-xl">
+                <User className="h-8 w-8 text-primary" />
+              </div>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-foreground">Individual Loan</h1>
+                <p className="text-muted-foreground">For salaried employees and individuals</p>
+              </div>
+            </div>
+            
+            <div className="bg-muted/50 rounded-xl p-6 border">
+              <p className="text-foreground mb-4">
+                Our individual loan is perfect for salaried employees and individuals who need quick access to funds for personal expenses. Whether it's for weddings, education, medical emergencies, home improvements, or any personal need, we've got you covered with a simple application process and fast approval.
+              </p>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="flex items-center gap-2">
+                  <Banknote className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Max Amount</p>
+                    <p className="font-bold text-foreground">₦5,000,000</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Percent className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Interest Rate</p>
+                    <p className="font-bold text-foreground">10% monthly</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Max Tenure</p>
+                    <p className="font-bold text-foreground">12 months</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="text-xs text-muted-foreground">Approval</p>
+                    <p className="font-bold text-foreground">&lt;24 hours</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
             {/* Calculator Section */}

@@ -46,7 +46,7 @@ const Hero = () => {
           <p className="text-center text-sm text-muted-foreground mb-6">Trusted by thousands of Nigerians</p>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {/* Stat 1 */}
+            {/* Stat 1 - White */}
             <div className="bg-card rounded-xl p-5 border">
               <div className="flex items-center gap-2 text-muted-foreground text-xs mb-2">
                 <Clock className="h-4 w-4" />
@@ -55,28 +55,28 @@ const Hero = () => {
               <p className="text-2xl md:text-3xl font-bold text-foreground">&lt;24 hrs</p>
             </div>
 
-            {/* Stat 2 */}
+            {/* Stat 2 - Red */}
             <div className="bg-primary rounded-xl p-5 text-primary-foreground">
               <p className="text-xs opacity-80 mb-2">INTEREST FROM</p>
               <p className="text-2xl md:text-3xl font-bold">5%<span className="text-sm font-normal">/month</span></p>
             </div>
 
-            {/* Stat 3 */}
-            <div className="bg-card rounded-xl p-5 border">
-              <div className="flex items-center gap-2 text-muted-foreground text-xs mb-2">
+            {/* Stat 3 - Red */}
+            <div className="bg-primary rounded-xl p-5 text-primary-foreground">
+              <div className="flex items-center gap-2 text-primary-foreground/80 text-xs mb-2">
                 <Users className="h-4 w-4" />
                 <span>HAPPY CUSTOMERS</span>
               </div>
-              <p className="text-2xl md:text-3xl font-bold text-foreground">50,000+</p>
+              <p className="text-2xl md:text-3xl font-bold">50+</p>
             </div>
 
-            {/* Stat 4 */}
+            {/* Stat 4 - White */}
             <div className="bg-card rounded-xl p-5 border">
               <div className="flex items-center gap-2 text-muted-foreground text-xs mb-2">
                 <Banknote className="h-4 w-4" />
                 <span>LOANS DISBURSED</span>
               </div>
-              <p className="text-2xl md:text-3xl font-bold text-foreground">₦2B+</p>
+              <p className="text-2xl md:text-3xl font-bold text-foreground">₦50M+</p>
             </div>
           </div>
 

@@ -248,7 +248,7 @@ const Header = () => {
                 variant="outline"
                 className="border-primary text-primary-foreground bg-primary/20 hover:bg-primary/30 text-sm px-8 py-5 rounded-xl"
                 onClick={() => { 
-                  window.open('https://wa.me/2348130222496', '_blank');
+                  window.open('https://wa.me/2348170099789', '_blank');
                   setIsMenuOpen(false); 
                 }}
               >

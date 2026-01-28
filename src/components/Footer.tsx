@@ -37,7 +37,7 @@ const Footer = () => {
                 size="sm" 
                 variant="ghost" 
                 className="text-gray-300 hover:text-white hover:bg-white/10"
-                onClick={() => window.open('https://wa.me/2348130222496', '_blank')}
+                onClick={() => window.open('https://wa.me/2348170099789', '_blank')}
               >
                 <MessageCircle className="h-4 w-4" />
               </Button>
@@ -81,7 +81,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center justify-center md:justify-start space-x-3">
                 <Phone className="h-4 w-4 text-primary" />
-                <span className="text-sm text-gray-300">08130222496</span>
+                <span className="text-sm text-gray-300">+2348170099789</span>
               </div>
               <div className="flex items-center justify-center md:justify-start space-x-3">
                 <Mail className="h-4 w-4 text-primary" />
@@ -95,7 +95,7 @@ const Footer = () => {
             <div className="text-center md:text-left">
               <Button 
                 className="bg-gradient-primary hover:bg-loan-primary-dark text-white shadow-loan w-full md:w-auto"
-                onClick={() => alert('Customer Support: Call 08130222496 or email support@lgcrednigltd.com. Live chat coming soon!')}
+                onClick={() => window.open('https://wa.me/2348170099789', '_blank')}
               >
                 Get Support
               </Button>

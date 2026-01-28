@@ -43,14 +43,58 @@ const Apply = () => {
             </p>
           </div>
 
+          {/* Instructions - Now First */}
           <Card className="shadow-loan-card">
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <div className="p-3 bg-primary/10 rounded-lg">
+                  <FileText className="h-6 w-6 text-primary" />
+                </div>
+                <CardTitle>How to Apply</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center p-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-xl font-bold text-primary">1</span>
+                  </div>
+                  <h3 className="font-semibold mb-2">Download Form</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Click the download button below to get the PDF form
+                  </p>
+                </div>
+                <div className="text-center p-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-xl font-bold text-primary">2</span>
+                  </div>
+                  <h3 className="font-semibold mb-2">Fill</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Fill in all required information on the form
+                  </p>
+                </div>
+                <div className="text-center p-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <span className="text-xl font-bold text-primary">3</span>
+                  </div>
+                  <h3 className="font-semibold mb-2">Submit</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Send your completed form and documents to our support email
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Downloadable Forms - Now Second */}
+          <Card className="mt-8 shadow-loan-card">
             <CardHeader className="text-center">
               <div className="p-4 bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <FileText className="h-8 w-8 text-primary" />
               </div>
               <CardTitle className="text-xl">LGCRED Loan Forms</CardTitle>
               <p className="text-muted-foreground text-sm mt-2">
-                Download, print, and fill the required forms for your loan type.
+                Download and fill the required forms for your loan type.
               </p>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -74,49 +118,6 @@ const Apply = () => {
             </CardContent>
           </Card>
 
-          {/* Instructions */}
-          <Card className="mt-8 shadow-loan-card">
-            <CardHeader>
-              <div className="flex items-center space-x-3">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <FileText className="h-6 w-6 text-primary" />
-                </div>
-                <CardTitle>How to Apply</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center p-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-xl font-bold text-primary">1</span>
-                  </div>
-                  <h3 className="font-semibold mb-2">Download Form</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Click the download button above to get the PDF form
-                  </p>
-                </div>
-                <div className="text-center p-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-xl font-bold text-primary">2</span>
-                  </div>
-                  <h3 className="font-semibold mb-2">Print & Fill</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Print the form and fill in all required information
-                  </p>
-                </div>
-                <div className="text-center p-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-xl font-bold text-primary">3</span>
-                  </div>
-                  <h3 className="font-semibold mb-2">Submit</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Bring your completed form and documents to our office
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Contact Info */}
           <Card className="mt-8 shadow-loan-card">
             <CardHeader>
@@ -124,18 +125,14 @@ const Apply = () => {
             </CardHeader>
             <CardContent>
               <div className="flex flex-col md:flex-row justify-center items-center gap-6 text-sm">
-                <a href="tel:+234XXXXXXXXXX" className="flex items-center gap-2 text-primary hover:underline">
+                <a href="tel:+2348170099789" className="flex items-center gap-2 text-primary hover:underline">
                   <Phone className="h-4 w-4" />
-                  Contact Us
+                  +2348170099789
                 </a>
                 <a href="mailto:support@lgcrednigltd.com" className="flex items-center gap-2 text-primary hover:underline">
                   <Mail className="h-4 w-4" />
                   support@lgcrednigltd.com
                 </a>
-                <span className="flex items-center gap-2 text-muted-foreground">
-                  <MapPin className="h-4 w-4" />
-                  Visit our office
-                </span>
               </div>
             </CardContent>
           </Card>

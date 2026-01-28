@@ -163,7 +163,7 @@ const Header = () => {
       >
         {/* Backdrop with blur */}
         <div 
-          className="absolute inset-0 bg-[hsl(var(--menu-overlay)/0.98)] backdrop-blur-md"
+          className="absolute inset-0 bg-white/98 backdrop-blur-md"
           onClick={() => setIsMenuOpen(false)}
         />
         
@@ -172,7 +172,7 @@ const Header = () => {
           <div className="flex flex-col items-center space-y-4 w-full px-8">
             {/* Loan Products Section */}
             <div className="w-full max-w-sm">
-              <p className="text-header-foreground/50 text-xs uppercase tracking-wider mb-3 text-center">Loan Products</p>
+              <p className="text-muted-foreground text-xs uppercase tracking-wider mb-3 text-center">Loan Products</p>
               <div className="space-y-2">
                 {loanProducts.map((product, index) => (
                   <div
@@ -185,12 +185,12 @@ const Header = () => {
                   >
                     <button
                       onClick={() => { navigate(product.path); setIsMenuOpen(false); }}
-                      className="flex items-center gap-3 w-full p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-300"
+                      className="flex items-center gap-3 w-full p-3 rounded-xl bg-muted hover:bg-muted/80 transition-all duration-300"
                     >
-                      <product.icon className="h-5 w-5 text-header-accent" />
+                      <product.icon className="h-5 w-5 text-primary" />
                       <div className="text-left">
-                        <span className="text-header-foreground font-medium block">{product.label}</span>
-                        <span className="text-header-foreground/50 text-xs">{product.description}</span>
+                        <span className="text-foreground font-medium block">{product.label}</span>
+                        <span className="text-muted-foreground text-xs">{product.description}</span>
                       </div>
                     </button>
                   </div>
@@ -199,7 +199,7 @@ const Header = () => {
             </div>
 
             {/* Divider */}
-            <div className="w-full max-w-sm h-px bg-header-foreground/10 my-4" />
+            <div className="w-full max-w-sm h-px bg-border my-4" />
 
             {/* Other Links */}
             <div className="flex flex-col items-center space-y-3">
@@ -219,11 +219,11 @@ const Header = () => {
                 >
                   <button
                     onClick={() => { item.action(); setIsMenuOpen(false); }}
-                    className="group text-header-foreground hover:text-header-accent transition-all duration-300"
+                    className="group text-foreground hover:text-primary transition-all duration-300"
                   >
                     <span className="text-2xl font-bold tracking-wide relative">
                       {item.label}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-header-accent transition-all duration-300 group-hover:w-full" />
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
                     </span>
                   </button>
                 </div>
@@ -262,7 +262,7 @@ const Header = () => {
             {[...Array(4)].map((_, i) => (
               <div
                 key={i}
-                className={`w-2 h-2 rounded-full bg-header-accent transition-all duration-500 ${
+                className={`w-2 h-2 rounded-full bg-primary transition-all duration-500 ${
                   isMenuOpen ? 'opacity-60 scale-100' : 'opacity-0 scale-0'
                 }`}
                 style={{ transitionDelay: `${800 + i * 100}ms` }}

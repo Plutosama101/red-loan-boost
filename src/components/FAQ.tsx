@@ -99,7 +99,7 @@ const FAQ = () => {
           </p>
           <Button
             variant="default"
-            onClick={() => window.open('https://wa.me/2348130222496', '_blank')}
+            onClick={() => window.open('https://wa.me/2348170099789', '_blank')}
           >
             Chat with Us on WhatsApp
           </Button>

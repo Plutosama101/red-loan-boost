@@ -51,10 +51,10 @@ const Header = () => {
   };
 
   const loanProducts = [
-    { label: "Local Government Loans", path: "/local-government-loan", icon: Building2, description: "For LGA employees" },
-    { label: "SME Loans", path: "/sme-loan", icon: Briefcase, description: "Business financing" },
-    { label: "Individual Loans", path: "/individual-loan", icon: User, description: "Personal loans" },
-    { label: "Proof of Funds", path: "/proof-of-funds-loan", icon: FileCheck, description: "Travel documentation" },
+    { label: "Local Government Loans", path: "/loans/local-government", icon: Building2, description: "For LGA employees" },
+    { label: "SME Loans", path: "/loans/sme", icon: Briefcase, description: "Business financing" },
+    { label: "Individual Loans", path: "/loans/individual", icon: User, description: "Personal loans" },
+    { label: "Proof of Funds", path: "/loans/proof-of-funds", icon: FileCheck, description: "Travel documentation" },
   ];
 
   return (

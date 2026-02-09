@@ -83,10 +83,10 @@ const Footer = () => {
                 <Phone className="h-4 w-4 text-primary" />
                 <span className="text-sm text-gray-300">+2348170099789</span>
               </a>
-              <div className="flex items-center justify-center md:justify-start space-x-3">
+              <a href="mailto:support@lgcrednigltd.com" className="flex items-center justify-center md:justify-start space-x-3 hover:opacity-80 transition-opacity">
                 <Mail className="h-4 w-4 text-primary" />
                 <span className="text-sm text-gray-300">support@lgcrednigltd.com</span>
-              </div>
+              </a>
               <div className="flex items-center justify-center md:justify-start space-x-3">
                 <MapPin className="h-4 w-4 text-primary" />
                 <span className="text-sm text-gray-300">Lagos, Nigeria</span>

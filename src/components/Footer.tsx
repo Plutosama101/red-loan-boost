@@ -79,10 +79,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-bold text-center md:text-left">Contact Us</h3>
             <div className="space-y-3">
-              <div className="flex items-center justify-center md:justify-start space-x-3">
+              <a href="https://wa.me/2348170099789" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center md:justify-start space-x-3 hover:opacity-80 transition-opacity">
                 <Phone className="h-4 w-4 text-primary" />
                 <span className="text-sm text-gray-300">+2348170099789</span>
-              </div>
+              </a>
               <div className="flex items-center justify-center md:justify-start space-x-3">
                 <Mail className="h-4 w-4 text-primary" />
                 <span className="text-sm text-gray-300">support@lgcrednigltd.com</span>

@@ -58,7 +58,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={`bg-header border-b border-header-border sticky top-0 z-50 transition-shadow duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
+    <header className={`bg-header sticky top-0 z-50 transition-shadow duration-300 ${isScrolled ? 'shadow-lg' : ''}`}>
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-18">
           {/* Logo */}
@@ -257,18 +257,6 @@ const Header = () => {
             </div>
           </div>
           
-          {/* Decorative Elements */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-2">
-            {[...Array(4)].map((_, i) => (
-              <div
-                key={i}
-                className={`w-2 h-2 rounded-full bg-primary transition-all duration-500 ${
-                  isMenuOpen ? 'opacity-60 scale-100' : 'opacity-0 scale-0'
-                }`}
-                style={{ transitionDelay: `${800 + i * 100}ms` }}
-              />
-            ))}
-          </div>
         </nav>
       </div>
     </header>

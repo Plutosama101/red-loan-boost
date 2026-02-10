@@ -139,7 +139,7 @@ const About = () => {
               { title: "Excellence", description: "We are committed to delivering exceptional service and exceeding expectations." }
             ].map((value, index) => (
               <Card key={index} className="shadow-loan-card hover:shadow-loan transition-shadow">
-                <CardContent className="p-6 space-y-3">
+                <CardContent className="p-6 space-y-3 text-center">
                   <h3 className="text-lg font-bold text-primary">{value.title}</h3>
                   <p className="text-sm text-muted-foreground">{value.description}</p>
                 </CardContent>
